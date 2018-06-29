@@ -1,0 +1,73 @@
+{
+	"$schema": "http://schemas.dev.brightspace.com/feature-flags/instance-multivariate/v1_0.json",
+	"name": "Panda Classification",
+	"description": "WWF feature flag",
+	"variations": {
+		"bear": {
+			"name": "Bear",
+			"description": "A normal panda bear.",
+			"value": "0"
+		},
+		"trash": {
+			"name": "Trash",
+			"description": "A beast that wanders the street at night.",
+			"value": "1"
+		}
+	},
+	"environments": {
+		"production": {
+			"defaultVariation": "bear",
+			"targets": [
+				{
+					"instanceNames": [
+						"my_academy"
+					],
+					"variation": "trash"
+				}
+			]
+		},
+		"development": {
+			"defaultVariation": "bear",
+			"targets": [
+				{
+					"instanceIds": [
+						"f3c33018-d9dd-447a-a7bc-7428b2e458e6",
+						"2ddf1282-0610-4d66-b25e-b207c42b18f3"
+					],
+					"variation": "trash"
+				},
+				{
+					"instanceIds": [
+						"2954f095-3c9e-4be1-b222-e5a8f2618ec7"
+					],
+					"variation": "bear"
+				}
+			],
+			"rules": [
+				{
+					"dataCenters": [
+						"eu01"
+					],
+					"variation": "bear"
+				},
+				{
+					"dataCenters": [
+						"us04"
+					],
+					"instanceTypes": [
+						"prod",
+						"dev"
+					],
+					"versions": {
+						"start": "10.8.4.0",
+						"end": "10.8.4.99999"
+					},
+					"variation": "trash"
+				}
+			]
+		}
+	},
+	"tags": [
+		"animals"
+	]
+}

@@ -1,0 +1,14 @@
+[
+	{
+		"InstanceId": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+		"ClientName": "instance_a",
+		"Orgs": {
+			"6606": {
+				"TenantId": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+				"HostNames": {
+					"www.tenant_b.org": {}
+				}
+			}
+		}
+	}
+]

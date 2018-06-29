@@ -1,0 +1,21 @@
+{
+	"javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+	"javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+	"javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+	"javascript.format.insertSpaceBeforeFunctionParenthesis": false,
+	"files.eol": "\n",
+	"json.schemas": [
+		{
+			"fileMatch": [
+				"./examples/instance-boolean.feature.json"
+			],
+			"url": "./schemas/instance-boolean/v1_0.json"
+		},
+		{
+			"fileMatch": [
+				"./examples/instance-multivariate.feature.json"
+			],
+			"url": "./schemas/instance-multivariate/v1_0.json"
+		}
+	]
+}

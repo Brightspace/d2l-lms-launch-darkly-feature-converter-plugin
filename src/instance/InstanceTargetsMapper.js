@@ -36,7 +36,7 @@ module.exports = class InstanceTargetsMapper {
 		const values = _.map(
 			uniqueInstanceIds,
 			instanceId => `instance:${ instanceId }`
-		)
+		);
 
 		return {
 			values,

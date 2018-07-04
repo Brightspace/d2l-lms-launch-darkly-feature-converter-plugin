@@ -3,6 +3,16 @@ const Ajv = require( 'ajv' );
 const ajv = new Ajv();
 ajv.addMetaSchema( require( 'ajv/lib/refs/json-schema-draft-06.json' ) );
 
+class JsonValidationError extends Error {
+
+	constructor( message, details, ...args ) {
+		super( message, ...args );
+
+		this.details = details;
+		Error.captureStackTrace( this, JsonValidationError );
+	}
+}
+
 module.exports = class JsonSchemaValidator {
 
 	constructor( schema ) {
@@ -16,8 +26,7 @@ module.exports = class JsonSchemaValidator {
 			return;
 		}
 
-		const errors = this._schemaValidator.errors;
-		const errorsJson = JSON.stringify( errors, null, '\t' );
-		throw new Error( `Invalid feature definition: ${errorsJson}` );
+		const details = this._schemaValidator.errors;
+		throw new JsonValidationError( 'Invalid feature definition', details );
 	}
 };

@@ -4,29 +4,29 @@ const instanceCatalogParser = require( '../src/instanceCatalog/instanceCatalogPa
 
 const instanceCatalog = instanceCatalogParser( [
 	{
-		InstanceId: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-		ClientName: 'instance_a',
-		Orgs: {
-			6606: {
-				TenantId: 'cccccccc-cccc-cccc-cccc-cccccccccccc',
-				HostNames: {
-					'www.tenant_c.org': {}
-				}
+		instanceId: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+		name: 'instance_a',
+		tenants: [
+			{
+				tenantId: 'cccccccc-cccc-cccc-cccc-cccccccccccc',
+				domains: [
+					'www.tenant_c.org'
+				]
 			}
-		}
+		]
 	},
 	{
-		InstanceId: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
-		ClientName: 'instance_b',
-		Orgs: {
-			6606: {
-				TenantId: 'dddddddd-dddd-dddd-dddd-dddddddddddd',
-				HostNames: {
-					'www.tenant_d.org': {},
-					'alt.tenant_d.org': {}
-				}
+		instanceId: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+		name: 'instance_b',
+		tenants: [
+			{
+				tenantId: 'dddddddd-dddd-dddd-dddd-dddddddddddd',
+				domains: [
+					'www.tenant_d.org',
+					'alt.tenant_d.org'
+				]
 			}
-		}
+		]
 	}
 ] );
 

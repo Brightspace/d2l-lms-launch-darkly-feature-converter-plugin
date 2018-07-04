@@ -1,5 +1,21 @@
 const _ = require( 'lodash' );
 
+function validateUniqueTargetVariations( definition, environment ) {
+
+	const visited = new Map();
+
+	const targets = definition.environments[ environment ].targets;
+	_.forEach( targets, t => {
+
+		const variation = t.variation;
+		if( visited.has( variation ) )  {
+			throw new Error( `Duplciate target variations in ${ environment } environment: ${ variation }` );
+		}
+
+		visited.set( variation, true );
+	} );
+}
+
 module.exports = class Converter {
 
 	constructor(
@@ -26,16 +42,7 @@ module.exports = class Converter {
 	convert( definition, options, callback ) {
 
 		try {
-			const schema = definition.$schema;
-
-			const validator = this._schemaValidators[ schema ];
-			if( !validator ) {
-				
-				const err = new Error( `Unsupported feature definition schema: ${schema}` );
-				return callback( err );
-			}
-
-			validator.validate( definition );
+			this.validate( definition );
 
 			const variationsMap = this._variationMapper.mapVariations( definition.variations );
 
@@ -77,5 +84,20 @@ module.exports = class Converter {
 		} catch( err ) {
 			return callback( err );
 		}
+	}
+
+	validate( definition ) {
+
+		const schema = definition.$schema;
+
+		const validator = this._schemaValidators[ schema ];
+		if( !validator ) {
+			throw new Error( `Unsupported feature definition schema: ${schema}` );
+		}
+
+		validator.validate( definition );
+
+		validateUniqueTargetVariations( definition, 'production' );
+		validateUniqueTargetVariations( definition, 'development' );
 	}
 };

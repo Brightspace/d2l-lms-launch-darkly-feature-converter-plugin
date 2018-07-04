@@ -13,7 +13,7 @@ function validateUniqueTargetVariations( definition, environment ) {
 		}
 
 		visited.set( variation, true );
-	} )
+	} );
 }
 
 module.exports = class Converter {

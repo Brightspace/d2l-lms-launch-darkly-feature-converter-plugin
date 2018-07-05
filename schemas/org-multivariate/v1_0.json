@@ -161,7 +161,7 @@
 					"uniqueItems": true,
 					"items": {
 						"type": "string",
-						"examples": [
+						"enum": [
 							"prod",
 							"dev",
 							"test"

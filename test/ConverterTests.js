@@ -140,6 +140,8 @@ describe( 'Converter', function() {
 					'',
 					'default description should be set'
 				);
+
+				done();
 			} );
 		} );
 

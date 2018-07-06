@@ -85,5 +85,50 @@ describe( 'MultiVariationMapper', function() {
 
 		} );
 
+		it( 'should map just values', function() {
+
+			const result = mapper.mapVariations( {
+				red: {
+					value: 0
+				},
+				green: {
+					value: 1
+				},
+				blue: {
+					value: 2
+				}
+			} );
+
+			assert.equal(
+				result.indexes.getIndex( 'red' ),
+				0,
+				'red should map to index 0'
+			);
+
+			assert.equal(
+				result.indexes.getIndex( 'green' ),
+				1,
+				'green should map to index 1'
+			);
+
+			assert.equal(
+				result.indexes.getIndex( 'blue' ),
+				2,
+				'blue should map to index 2'
+			);
+
+			assert.deepEqual( result.variations, [
+				{
+					value: 0
+				},
+				{
+					value: 1
+				},
+				{
+					value: 2
+				}
+			] );
+		} );
+
 	} );
 } );

@@ -3,7 +3,7 @@ const VariationIndexMap = require( './VariationIndexMap.js' );
 
 function mapBooleanVariation( definition, value ) {
 
-	const variation = _.pick( definition, [
+	const variation = _.pick( definition || {}, [
 		'name',
 		'description'
 	] );
@@ -16,6 +16,13 @@ function mapBooleanVariation( definition, value ) {
 module.exports = class BooleanVariationMapper {
 
 	mapVariations( definition ) {
+
+		if( !definition ) {
+			definition = {
+				true: {},
+				false: {}
+			};
+		}
 
 		const trueVariation = mapBooleanVariation( definition.true, true );
 		const falseVariation = mapBooleanVariation( definition.false, false );

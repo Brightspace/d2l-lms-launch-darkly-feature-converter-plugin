@@ -6,7 +6,6 @@
 	"required": [
 		"$schema",
 		"name",
-		"description",
 		"environments"
 	],
 	"properties": {
@@ -88,7 +87,6 @@
 				"defaultVariation": {
 					"type": "string",
 					"title": "The variation to use when neither targets or rules match",
-					"minLength": 1,
 					"enum": [
 						"true",
 						"false"
@@ -185,7 +183,6 @@
 				"variation": {
 					"type": "string",
 					"title": "The variation to target",
-					"minLength": 1,
 					"enum": [
 						"true",
 						"false"
@@ -228,7 +225,6 @@
 				"variation": {
 					"type": "string",
 					"title": "The variation to target",
-					"minLength": 1,
 					"enum": [
 						"true",
 						"false"

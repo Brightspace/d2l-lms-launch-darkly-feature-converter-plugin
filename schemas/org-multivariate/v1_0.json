@@ -6,7 +6,6 @@
 	"required": [
 		"$schema",
 		"name",
-		"description",
 		"environments",
 		"variations"
 	],

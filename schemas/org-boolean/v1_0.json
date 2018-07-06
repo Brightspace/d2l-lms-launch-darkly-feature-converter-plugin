@@ -264,7 +264,8 @@
 				},
 				"description": {
 					"type": "string",
-					"title": "The description of what the variation controls"
+					"title": "The description of what the variation controls",
+					"minLength": 1
 				}
 			}
 		},

@@ -42,7 +42,7 @@
 				},
 				"false": {
 					"$ref": "#/definitions/variation",
-					"title": "The true variation key"
+					"title": "The false variation key"
 				}
 			}
 		},

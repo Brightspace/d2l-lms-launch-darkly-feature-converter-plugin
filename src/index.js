@@ -15,10 +15,16 @@ const BooleanVariationMapper = require( './variations/BooleanVariationMapper.js'
 const MultiVariationMapper = require( './variations/MultiVariationMapper.js' );
 
 const instanceBooleanSchemaV1_0 = require( '../schemas/instance-boolean/v1_0.json' );
+const instanceBooleanSchemaV1_1 = require( '../schemas/instance-boolean/v1_1.json' );
+
 const instanceMultivariateSchemaV1_0 = require( '../schemas/instance-multivariate/v1_0.json' );
+const instanceMultivariateSchemaV1_1 = require( '../schemas/instance-multivariate/v1_1.json' );
 
 const orgBooleanSchemaV1_0 = require( '../schemas/org-boolean/v1_0.json' );
+const orgBooleanSchemaV1_1 = require( '../schemas/org-boolean/v1_1.json' );
+
 const orgMultivariateSchemaV1_0 = require( '../schemas/org-multivariate/v1_0.json' );
+const orgMultivariateSchemaV1_1 = require( '../schemas/org-multivariate/v1_1.json' );
 
 const booleanFeatureKind = 'boolean';
 const multivariateFeatureKind = 'multivariate';
@@ -54,7 +60,8 @@ function* createConverters( instanceCatalog ) {
 	yield new Converter(
 		booleanFeatureKind,
 		createSchemaValiators( [
-			instanceBooleanSchemaV1_0
+			instanceBooleanSchemaV1_0,
+			instanceBooleanSchemaV1_1
 		] ),
 		booleanVariationMapper,
 		instanceEnvironmentMapper,
@@ -64,7 +71,8 @@ function* createConverters( instanceCatalog ) {
 	yield new Converter(
 		multivariateFeatureKind,
 		createSchemaValiators( [
-			instanceMultivariateSchemaV1_0
+			instanceMultivariateSchemaV1_0,
+			instanceMultivariateSchemaV1_1
 		] ),
 		multiVariationMapper,
 		instanceEnvironmentMapper,
@@ -74,7 +82,8 @@ function* createConverters( instanceCatalog ) {
 	yield new Converter(
 		booleanFeatureKind,
 		createSchemaValiators( [
-			orgBooleanSchemaV1_0
+			orgBooleanSchemaV1_0,
+			orgBooleanSchemaV1_1
 		] ),
 		booleanVariationMapper,
 		orgEnvironmentMapper,
@@ -84,7 +93,8 @@ function* createConverters( instanceCatalog ) {
 	yield new Converter(
 		multivariateFeatureKind,
 		createSchemaValiators( [
-			orgMultivariateSchemaV1_0
+			orgMultivariateSchemaV1_0,
+			orgMultivariateSchemaV1_1
 		] ),
 		multiVariationMapper,
 		orgEnvironmentMapper,

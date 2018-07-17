@@ -58,6 +58,78 @@ describe( 'InstanceTargetsMapper', function() {
 		} );
 	} );
 
+	it( 'should map instances (strings)', function() {
+
+		const definition = {
+			instances: [
+				'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+			],
+			variation: 'abc'
+		};
+
+		const target = mapper.mapTarget( definition, variationIndexMap );
+
+		assert.deepEqual( target, {
+			values: [
+				'instance:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+				'instance:bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
+			],
+			variation: 2
+		} );
+	} );
+
+	it( 'should map instances (objects)', function() {
+
+		const definition = {
+			instances: [
+				{
+					instanceId: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+					comments: 'bbb'
+				},
+				{
+					instanceId: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+					comments: 'aaa'
+				}
+			],
+			variation: 'abc'
+		};
+
+		const target = mapper.mapTarget( definition, variationIndexMap );
+
+		assert.deepEqual( target, {
+			values: [
+				'instance:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+				'instance:bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
+			],
+			variation: 2
+		} );
+	} );
+
+	it( 'should map instances (mixed)', function() {
+
+		const definition = {
+			instances: [
+				{
+					instanceId: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+					comments: 'bbb'
+				},
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+			],
+			variation: 'abc'
+		};
+
+		const target = mapper.mapTarget( definition, variationIndexMap );
+
+		assert.deepEqual( target, {
+			values: [
+				'instance:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+				'instance:bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
+			],
+			variation: 2
+		} );
+	} );
+
 	it( 'should merge instance ids & instance names', function() {
 
 		const definition = {
@@ -111,6 +183,52 @@ describe( 'InstanceTargetsMapper', function() {
 			instanceNames: [
 				'instance_c',
 				'instance_a'
+			],
+			variation: 'abc'
+		};
+
+		assert.throws(
+			() => mapper.mapTarget( definition, variationIndexMap ),
+			/Instances are duplicated: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa, cccccccc-cccc-cccc-cccc-cccccccccccc/
+		);
+	} );
+
+	it( 'should throw if multiple instances defined both by instance and name', function() {
+
+		const definition = {
+			instances: [
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+				'cccccccc-cccc-cccc-cccc-cccccccccccc'
+			],
+			instanceNames: [
+				'instance_c',
+				'instance_a'
+			],
+			variation: 'abc'
+		};
+
+		assert.throws(
+			() => mapper.mapTarget( definition, variationIndexMap ),
+			/Instances are duplicated: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa, cccccccc-cccc-cccc-cccc-cccccccccccc/
+		);
+	} );
+
+	it( 'should throw if multiple instances defined both by instance and id', function() {
+
+		const definition = {
+			instanceIds: [
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+				'cccccccc-cccc-cccc-cccc-cccccccccccc'
+			],
+			instances: [
+				{
+					instanceId: 'cccccccc-cccc-cccc-cccc-cccccccccccc',
+					comments: 'ccc'
+				},
+				{
+					instanceId: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+					comments: 'aaa'
+				}
 			],
 			variation: 'abc'
 		};

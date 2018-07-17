@@ -17,7 +17,23 @@ module.exports = class OrgTargetsMapper {
 
 		const explicitTenantIds = definition.tenantIds || [];
 
-		const allTenantIds = _.concat( implicitTenantIds, explicitTenantIds );
+		const mixedExplicitTenantIds = _.map(
+			definition.tenants || [],
+			tenant => {
+
+				if( _.isString( tenant ) ) {
+					return tenant;
+				}
+
+				return tenant.tenantId;
+			}
+		);
+
+		const allTenantIds = _.concat(
+			implicitTenantIds,
+			explicitTenantIds,
+			mixedExplicitTenantIds
+		);
 
 		const uniqueTenantIds = _.orderBy(
 			_.uniq( allTenantIds )
@@ -25,7 +41,25 @@ module.exports = class OrgTargetsMapper {
 
 		if( allTenantIds.length !== uniqueTenantIds.length ) {
 
-			const duplicates = _.intersection( implicitTenantIds, explicitTenantIds );
+			const duplicates = _.orderBy(
+				_.uniq(
+					_.flatten( [
+						_.intersection(
+							implicitTenantIds,
+							explicitTenantIds
+						),
+						_.intersection(
+							implicitTenantIds,
+							mixedExplicitTenantIds
+						),
+						_.intersection(
+							explicitTenantIds,
+							mixedExplicitTenantIds
+						)
+					] )
+				)
+			);
+
 			const duplicatesStr = _.join( duplicates, ', ' );
 			throw new Error( `Tenants are duplicated: ${duplicatesStr}` );
 		}

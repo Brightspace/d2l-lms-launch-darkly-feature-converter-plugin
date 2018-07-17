@@ -58,6 +58,78 @@ describe( 'OrgTargetsMapper', function() {
 		} );
 	} );
 
+	it( 'should map tenants (strings)', function() {
+
+		const definition = {
+			tenants: [
+				'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+			],
+			variation: 'abc'
+		};
+
+		const target = mapper.mapTarget( definition, variationIndexMap );
+
+		assert.deepEqual( target, {
+			values: [
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+				'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
+			],
+			variation: 2
+		} );
+	} );
+
+	it( 'should map tenants (objects)', function() {
+
+		const definition = {
+			tenants: [
+				{
+					tenantId: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+					comments: 'bbb'
+				},
+				{
+					tenantId: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+					comments: 'aaa'
+				}
+			],
+			variation: 'abc'
+		};
+
+		const target = mapper.mapTarget( definition, variationIndexMap );
+
+		assert.deepEqual( target, {
+			values: [
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+				'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
+			],
+			variation: 2
+		} );
+	} );
+
+	it( 'should map tenants (mixed)', function() {
+
+		const definition = {
+			tenants: [
+				{
+					tenantId: 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+					comments: 'bbb'
+				},
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+			],
+			variation: 'abc'
+		};
+
+		const target = mapper.mapTarget( definition, variationIndexMap );
+
+		assert.deepEqual( target, {
+			values: [
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+				'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
+			],
+			variation: 2
+		} );
+	} );
+
 	it( 'should merge tenant ids & tenant domains', function() {
 
 		const definition = {
@@ -101,7 +173,7 @@ describe( 'OrgTargetsMapper', function() {
 		);
 	} );
 
-	it( 'should throw if multiple instances defined both by id and name', function() {
+	it( 'should throw if multiple tenants defined both by id and name', function() {
 
 		const definition = {
 			tenantIds: [
@@ -111,6 +183,52 @@ describe( 'OrgTargetsMapper', function() {
 			tenantDomains: [
 				'www.tenant_a.org',
 				'www.tenant_c.org'
+			],
+			variation: 'abc'
+		};
+
+		assert.throws(
+			() => mapper.mapTarget( definition, variationIndexMap ),
+			/Tenants are duplicated: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa, cccccccc-cccc-cccc-cccc-cccccccccccc/
+		);
+	} );
+	
+	it( 'should throw if multiple tenants defined both by tenant and name', function() {
+
+		const definition = {
+			tenants: [
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+				'cccccccc-cccc-cccc-cccc-cccccccccccc'
+			],
+			tenantDomains: [
+				'www.tenant_a.org',
+				'www.tenant_c.org'
+			],
+			variation: 'abc'
+		};
+
+		assert.throws(
+			() => mapper.mapTarget( definition, variationIndexMap ),
+			/Tenants are duplicated: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa, cccccccc-cccc-cccc-cccc-cccccccccccc/
+		);
+	} );
+	
+	it( 'should throw if multiple tenants defined both by tenant and id', function() {
+
+		const definition = {
+			tenantIds: [
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+				'cccccccc-cccc-cccc-cccc-cccccccccccc'
+			],
+			tenants: [
+				{
+					tenantId: 'cccccccc-cccc-cccc-cccc-cccccccccccc',
+					comments: 'ccc'
+				},
+				{
+					tenantId: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+					comments: 'aaa'
+				}
 			],
 			variation: 'abc'
 		};

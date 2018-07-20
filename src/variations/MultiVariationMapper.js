@@ -17,6 +17,17 @@ function validateAllSameType( values ) {
 	} );
 }
 
+function mapVariation( variation ) {
+
+	const mappedVariation = _.pick( variation, [
+		'name',
+		'description',
+		'value'
+	] );
+
+	return mappedVariation;
+}
+
 function mapVariationsFromObject( definition ) {
 
 	const allValues = _.map( _.values( definition ), d => d.value );
@@ -37,13 +48,9 @@ function mapVariationsFromObject( definition ) {
 	_.forIn( definition, ( variation, key ) => {
 		indexes[ key ] = index;
 
-		const mappedVariation = _.pick( variation, [
-			'name',
-			'description',
-			'value'
-		] );
-
+		const mappedVariation = mapVariation( variation );
 		variations.push( mappedVariation );
+
 		index++;
 	} );
 
@@ -80,14 +87,8 @@ function mapVariationsFromArray( definition ) {
 	definition.forEach( ( variation, index ) => {
 		indexes[ variation.key ] = index;
 
-		const mappedVariation = _.pick( variation, [
-			'name',
-			'description',
-			'value'
-		] );
-
+		const mappedVariation = mapVariation( variation );
 		variations.push( mappedVariation );
-		index++;
 	} );
 
 	return {

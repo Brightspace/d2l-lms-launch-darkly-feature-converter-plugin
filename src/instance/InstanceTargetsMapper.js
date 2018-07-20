@@ -1,5 +1,5 @@
 const _ = require( 'lodash' );
-const anyIntersections = require( '../utils.js' ).anyIntersections;
+const duplicatesDeep = require( '../utils.js' ).duplicatesDeep;
 
 module.exports = class InstanceTargetsMapper {
 
@@ -43,11 +43,11 @@ module.exports = class InstanceTargetsMapper {
 		if( allInstanceIds.length !== uniqueInstanceIds.length ) {
 
 			const duplicates = _.orderBy(
-				anyIntersections(
+				duplicatesDeep( [
 					implicitInstanceIds,
 					explicitInstanceIds,
 					mixedExplicitInstanceIds
-				)
+				] )
 			);
 
 			const duplicatesStr = _.join( duplicates, ', ' );

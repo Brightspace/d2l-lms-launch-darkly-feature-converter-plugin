@@ -1,27 +1,23 @@
 const _ = require( 'lodash' );
 
-function anyIntersections( items1, items2, items3 ) {
+function duplicatesDeep( arrays ) {
 
-	const intersections = _.uniq(
-		_.flatten( [
-			_.intersection(
-				items1,
-				items2
-			),
-			_.intersection(
-				items1,
-				items3
-			),
-			_.intersection(
-				items2,
-				items3
-			)
-		] )
-	);
+	const visited = new Set();
+	const duplicates = new Set();
 
-	return intersections;
+	const all = _.flattenDeep( arrays );
+	_.forEach( all, item => {
+
+		if( visited.has( item ) ) {
+			duplicates.add( item );
+		} else {
+			visited.add( item );
+		}
+	} );
+
+	return Array.from( duplicates );
 }
 
 module.exports = {
-	anyIntersections
+	duplicatesDeep
 };

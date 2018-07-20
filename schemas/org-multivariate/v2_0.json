@@ -28,7 +28,7 @@
 			"minLength": 1
 		},
 		"variations": {
-			"type": "object",
+			"type": "array",
 			"title": "The keyed enumeration of variations. The keys are referenced elsewhere in the document.",
 			"additionalItems": false,
 			"minItems": 2,

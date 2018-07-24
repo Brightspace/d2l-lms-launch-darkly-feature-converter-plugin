@@ -32,10 +32,14 @@ module.exports = class EnvironmentMapper {
 			r => this._rulesMapper.mapRule( r, variationIndexMap )
 		);
 
-		const on = (
-			targets.length > 0
-			|| rules.length > 0
-		);
+		const disabled = definition.disabled === true;
+
+		const on =
+			!disabled
+			&& (
+				targets.length > 0
+				|| rules.length > 0
+			);
 
 		return {
 			on,

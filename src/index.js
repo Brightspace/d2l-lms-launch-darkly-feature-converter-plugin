@@ -16,6 +16,7 @@ const MultiVariationMapper = require( './variations/MultiVariationMapper.js' );
 
 const instanceBooleanSchemaV1_0 = require( '../schemas/instance-boolean/v1_0.json' );
 const instanceBooleanSchemaV1_1 = require( '../schemas/instance-boolean/v1_1.json' );
+const instanceBooleanSchemaV1_2 = require( '../schemas/instance-boolean/v1_2.json' );
 
 const instanceMultivariateSchemaV1_0 = require( '../schemas/instance-multivariate/v1_0.json' );
 const instanceMultivariateSchemaV1_1 = require( '../schemas/instance-multivariate/v1_1.json' );
@@ -63,7 +64,8 @@ function* createConverters( instanceCatalog ) {
 		booleanFeatureKind,
 		createSchemaValiators( [
 			instanceBooleanSchemaV1_0,
-			instanceBooleanSchemaV1_1
+			instanceBooleanSchemaV1_1,
+			instanceBooleanSchemaV1_2
 		] ),
 		booleanVariationMapper,
 		instanceEnvironmentMapper,

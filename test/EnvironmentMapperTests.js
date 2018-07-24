@@ -147,5 +147,41 @@ describe( 'EnvironmentMapper', function() {
 				expected
 			);
 		} );
+
+		it( 'should set environment off when disabled', function() {
+
+			const definition = {
+				disabled: true,
+				defaultVariation: 'on',
+				targets: [
+					{
+						instances: [
+							'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+						],
+						variation: 'on'
+					}
+				]
+			};
+
+			const expected = {
+				on: false,
+				targets: [
+					{
+						values: [ 'instance:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa' ],
+						variation: 0
+					}
+				],
+				rules: [],
+				fallthrough: {
+					variation: 0
+				},
+				offVariation: 0
+			};
+
+			assert.deepEqual(
+				mapper.mapEnvironment( definition, variationIndexMap ),
+				expected
+			);
+		} );
 	} );
 } );

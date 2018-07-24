@@ -112,7 +112,7 @@
 				},
 				"disabled": {
 					"type": "boolean",
-					"title": "True if targeting should be enabled, false otherwise."
+					"title": "If true, the defaultVariation is always used, and the targets and rules are ignored."
 				}
 			}
 		},

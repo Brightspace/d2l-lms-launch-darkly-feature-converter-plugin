@@ -197,7 +197,7 @@ describe( 'InstanceRulesMapper', function() {
 
 		assert.throws(
 			() => {
-				mapper.mapRule( definition, variationIndexMap )
+				mapper.mapRule( definition, variationIndexMap );
 			},
 			/^Version start is greater than version end: 10.8.5.0 > 10.8.4.0$/
 		);

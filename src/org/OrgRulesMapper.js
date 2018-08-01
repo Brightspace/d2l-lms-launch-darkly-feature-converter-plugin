@@ -1,6 +1,6 @@
 const _ = require( 'lodash' );
 const instanceTypeMapper = require( '../instanceTypeMapper' );
-const sortableVersionBuilder = require( '../sortableVersionBuilder.js' );
+const sortableVersionRangeParser = require( '../sortableVersionRangeParser.js' );
 
 function* mapClauses( definition ) {
 
@@ -42,16 +42,14 @@ function* mapClauses( definition ) {
 		};
 	}
 
-	const versions = definition.versions;
+	const versions = sortableVersionRangeParser( definition.versions );
 	if( versions ) {
 
 		if( versions.start ) {
 			yield {
 				attribute: 'productVersion',
 				op: 'greaterThanOrEqual',
-				values: [
-					sortableVersionBuilder( versions.start )
-				],
+				values: [ versions.start ],
 				negate: false
 			};
 		}
@@ -60,9 +58,7 @@ function* mapClauses( definition ) {
 			yield {
 				attribute: 'productVersion',
 				op: 'lessThanOrEqual',
-				values: [
-					sortableVersionBuilder( versions.end )
-				],
+				values: [ versions.end ],
 				negate: false
 			};
 		}

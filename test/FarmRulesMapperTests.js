@@ -86,4 +86,75 @@ describe( 'FarmRulesMapper', function() {
 			variation: 2 
 		} );
 	} );
+
+	it( 'should map version start and end', function() {
+
+		const definition = {
+			versions: {
+				start: '10.8.4.12345',
+				end: '10.8.5.99999'
+			},
+			variation: 'abc'
+		};
+
+		const rule = mapper.mapRule( definition, variationIndexMap );
+
+		assert.deepEqual( rule, {
+			clauses: [
+				{
+					attribute: 'bundleVersion',
+					op: 'greaterThanOrEqual',
+					values: [
+						10080412345
+					],
+					negate: false
+				},
+				{
+					attribute: 'bundleVersion',
+					op: 'lessThanOrEqual',
+					values: [
+						10080599999
+					],
+					negate: false
+				}
+			],
+			variation: 2 
+		} );
+	} );
+
+	it( 'should map specific version', function() {
+
+		const definition = {
+			versions: {
+				start: '10.8.4.12345',
+				end: '10.8.4.12345'
+			},
+			variation: 'abc'
+		};
+
+		const rule = mapper.mapRule( definition, variationIndexMap );
+
+		assert.deepEqual( rule, {
+			clauses: [
+				{
+					attribute: 'bundleVersion',
+					op: 'greaterThanOrEqual',
+					values: [
+						10080412345
+					],
+					negate: false
+				},
+				{
+					attribute: 'bundleVersion',
+					op: 'lessThanOrEqual',
+					values: [
+						10080412345
+					],
+					negate: false
+				}
+			],
+			variation: 2 
+		} );
+	} );
+
 } );

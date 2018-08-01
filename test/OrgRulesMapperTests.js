@@ -212,4 +212,22 @@ describe( 'OrgRulesMapperTests', function() {
 			variation: 2 
 		} );
 	} );
+
+	it( 'should throw if start version is greater than end version', function() {
+
+		const definition = {
+			versions: {
+				start: '10.8.5.0',
+				end: '10.8.4.0'
+			},
+			variation: 'abc'
+		};
+
+		assert.throws(
+			() => {
+				mapper.mapRule( definition, variationIndexMap )
+			},
+			/^Version start is greater than version end: 10.8.5.0 > 10.8.4.0$/
+		);
+	} );
 } );

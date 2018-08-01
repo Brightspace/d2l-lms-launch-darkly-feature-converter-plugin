@@ -5,6 +5,9 @@ const JsonSchemaValidator = require( './JsonSchemaValidator.js' );
 
 const loadInstanceCatalog = require( './instanceCatalog/instanceCatalogLoader.js' );
 
+const FarmRulesMapper = require( './farm/FarmRulesMapper.js' );
+const FarmTargetsMapper = require( './farm/FarmTargetsMapper.js' );
+
 const InstanceRulesMapper = require( './instance/InstanceRulesMapper.js' );
 const InstanceTargetsMapper = require( './instance/InstanceTargetsMapper.js' );
 
@@ -13,6 +16,8 @@ const OrgTargetsMapper = require( './org/OrgTargetsMapper.js' );
 
 const BooleanVariationMapper = require( './variations/BooleanVariationMapper.js' );
 const MultiVariationMapper = require( './variations/MultiVariationMapper.js' );
+
+const farmBooleanSchemaV1_0 = require( '../schemas/farm-boolean/v1_0.json' );
 
 const instanceBooleanSchemaV1_0 = require( '../schemas/instance-boolean/v1_0.json' );
 const instanceBooleanSchemaV1_1 = require( '../schemas/instance-boolean/v1_1.json' );
@@ -33,6 +38,7 @@ const booleanFeatureKind = 'boolean';
 const multivariateFeatureKind = 'multivariate';
 
 const generateFlagTag = 'lms-generated-flag';
+const farmFlagTag = 'lms-farm-flag';
 const instanceFlagTag = 'lms-instance-flag';
 const orgFlagTag = 'lms-org-flag';
 
@@ -52,6 +58,10 @@ function* createConverters( instanceCatalog ) {
 	const booleanVariationMapper = new BooleanVariationMapper();
 	const multiVariationMapper = new MultiVariationMapper();
 
+	const farmTargetsMapper = new FarmTargetsMapper();
+	const farmRulesMapper = new FarmRulesMapper();
+	const farmEnvironmentMapper = new EnvironmentMapper( farmTargetsMapper, farmRulesMapper );
+
 	const instanceTargetsMapper = new InstanceTargetsMapper( instanceCatalog );
 	const instanceRulesMapper = new InstanceRulesMapper();
 	const instanceEnvironmentMapper = new EnvironmentMapper( instanceTargetsMapper, instanceRulesMapper );
@@ -59,6 +69,16 @@ function* createConverters( instanceCatalog ) {
 	const orgTargetsMapper = new OrgTargetsMapper( instanceCatalog );
 	const orgRulesMapper = new OrgRulesMapper();
 	const orgEnvironmentMapper = new EnvironmentMapper( orgTargetsMapper, orgRulesMapper );
+
+	yield new Converter(
+		booleanFeatureKind,
+		createSchemaValiators( [
+			farmBooleanSchemaV1_0
+		] ),
+		booleanVariationMapper,
+		farmEnvironmentMapper,
+		[ generateFlagTag, farmFlagTag ]
+	);
 
 	yield new Converter(
 		booleanFeatureKind,

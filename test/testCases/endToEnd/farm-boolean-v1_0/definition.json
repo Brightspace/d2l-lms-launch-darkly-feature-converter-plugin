@@ -1,0 +1,59 @@
+{
+	"$schema": "http://schemas.dev.brightspace.com/feature-flags/farm-boolean/v1_0.json",
+	"name": "Switch",
+	"description": "Simple on/off switch",
+	"tags": [
+		"mocha",
+		"test"
+	],
+	"variations": {
+		"true": {
+			"name": "On",
+			"description": "Turns the switch on"
+		},
+		"false": {
+			"name": "Off",
+			"description": "Turns the switch off"
+		}
+	},
+	"environments": {
+		"production": {
+			"defaultVariation": "false",
+			"targets": [
+				{
+					"farms": [
+						"cows",
+						"chickens"
+					],
+					"variation": "true"
+				},
+				{
+					"farms": [
+						{
+							"farmId": "test998dev",
+							"comments": "horses"
+						}
+					],
+					"variation": "false"
+				}
+			]
+		},
+		"development": {
+			"defaultVariation": "true",
+			"rules": [
+				{
+					"versions": {
+						"start": "10.8.4.0"
+					},
+					"variation": "false"
+				},
+				{
+					"dataCenters": [
+						"us04"
+					],
+					"variation": "true"
+				}
+			]
+		}
+	}
+}

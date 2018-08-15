@@ -18,6 +18,7 @@ const BooleanVariationMapper = require( './variations/BooleanVariationMapper.js'
 const MultiVariationMapper = require( './variations/MultiVariationMapper.js' );
 
 const farmBooleanSchemaV1_0 = require( '../schemas/farm-boolean/v1_0.json' );
+const farmBooleanSchemaV1_1 = require( '../schemas/farm-boolean/v1_1.json' );
 
 const instanceBooleanSchemaV1_0 = require( '../schemas/instance-boolean/v1_0.json' );
 const instanceBooleanSchemaV1_1 = require( '../schemas/instance-boolean/v1_1.json' );
@@ -73,7 +74,8 @@ function* createConverters( instanceCatalog ) {
 	yield new Converter(
 		booleanFeatureKind,
 		createSchemaValiators( [
-			farmBooleanSchemaV1_0
+			farmBooleanSchemaV1_0,
+			farmBooleanSchemaV1_1
 		] ),
 		booleanVariationMapper,
 		farmEnvironmentMapper,

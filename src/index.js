@@ -20,6 +20,8 @@ const MultiVariationMapper = require( './variations/MultiVariationMapper.js' );
 const farmBooleanSchemaV1_0 = require( '../schemas/farm-boolean/v1_0.json' );
 const farmBooleanSchemaV1_1 = require( '../schemas/farm-boolean/v1_1.json' );
 
+const farmMultivariateSchemaV1_0 = require( '../schemas/farm-multivariate/v1_0.json' );
+
 const instanceBooleanSchemaV1_0 = require( '../schemas/instance-boolean/v1_0.json' );
 const instanceBooleanSchemaV1_1 = require( '../schemas/instance-boolean/v1_1.json' );
 const instanceBooleanSchemaV1_2 = require( '../schemas/instance-boolean/v1_2.json' );
@@ -78,6 +80,16 @@ function* createConverters( instanceCatalog ) {
 			farmBooleanSchemaV1_1
 		] ),
 		booleanVariationMapper,
+		farmEnvironmentMapper,
+		[ generateFlagTag, farmFlagTag ]
+	);
+	
+	yield new Converter(
+		multivariateFeatureKind,
+		createSchemaValiators( [
+			farmMultivariateSchemaV1_0
+		] ),
+		multiVariationMapper,
 		farmEnvironmentMapper,
 		[ generateFlagTag, farmFlagTag ]
 	);

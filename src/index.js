@@ -19,23 +19,29 @@ const MultiVariationMapper = require( './variations/MultiVariationMapper.js' );
 
 const farmBooleanSchemaV1_0 = require( '../schemas/farm-boolean/v1_0.json' );
 const farmBooleanSchemaV1_1 = require( '../schemas/farm-boolean/v1_1.json' );
+const farmBooleanSchemaV1_2 = require( '../schemas/farm-boolean/v1_2.json' );
 
 const farmMultivariateSchemaV1_0 = require( '../schemas/farm-multivariate/v1_0.json' );
+const farmMultivariateSchemaV1_1 = require( '../schemas/farm-multivariate/v1_1.json' );
 
 const instanceBooleanSchemaV1_0 = require( '../schemas/instance-boolean/v1_0.json' );
 const instanceBooleanSchemaV1_1 = require( '../schemas/instance-boolean/v1_1.json' );
 const instanceBooleanSchemaV1_2 = require( '../schemas/instance-boolean/v1_2.json' );
+const instanceBooleanSchemaV1_3 = require( '../schemas/instance-boolean/v1_3.json' );
 
 const instanceMultivariateSchemaV1_0 = require( '../schemas/instance-multivariate/v1_0.json' );
 const instanceMultivariateSchemaV1_1 = require( '../schemas/instance-multivariate/v1_1.json' );
 const instanceMultivariateSchemaV2_0 = require( '../schemas/instance-multivariate/v2_0.json' );
+const instanceMultivariateSchemaV2_1 = require( '../schemas/instance-multivariate/v2_1.json' );
 
 const orgBooleanSchemaV1_0 = require( '../schemas/org-boolean/v1_0.json' );
 const orgBooleanSchemaV1_1 = require( '../schemas/org-boolean/v1_1.json' );
+const orgBooleanSchemaV1_2 = require( '../schemas/org-boolean/v1_2.json' );
 
 const orgMultivariateSchemaV1_0 = require( '../schemas/org-multivariate/v1_0.json' );
 const orgMultivariateSchemaV1_1 = require( '../schemas/org-multivariate/v1_1.json' );
 const orgMultivariateSchemaV2_0 = require( '../schemas/org-multivariate/v2_0.json' );
+const orgMultivariateSchemaV2_1 = require( '../schemas/org-multivariate/v2_1.json' );
 
 const booleanFeatureKind = 'boolean';
 const multivariateFeatureKind = 'multivariate';
@@ -77,7 +83,8 @@ function* createConverters( instanceCatalog ) {
 		booleanFeatureKind,
 		createSchemaValiators( [
 			farmBooleanSchemaV1_0,
-			farmBooleanSchemaV1_1
+			farmBooleanSchemaV1_1,
+			farmBooleanSchemaV1_2
 		] ),
 		booleanVariationMapper,
 		farmEnvironmentMapper,
@@ -87,7 +94,8 @@ function* createConverters( instanceCatalog ) {
 	yield new Converter(
 		multivariateFeatureKind,
 		createSchemaValiators( [
-			farmMultivariateSchemaV1_0
+			farmMultivariateSchemaV1_0,
+			farmMultivariateSchemaV1_1
 		] ),
 		multiVariationMapper,
 		farmEnvironmentMapper,
@@ -99,7 +107,8 @@ function* createConverters( instanceCatalog ) {
 		createSchemaValiators( [
 			instanceBooleanSchemaV1_0,
 			instanceBooleanSchemaV1_1,
-			instanceBooleanSchemaV1_2
+			instanceBooleanSchemaV1_2,
+			instanceBooleanSchemaV1_3
 		] ),
 		booleanVariationMapper,
 		instanceEnvironmentMapper,
@@ -111,7 +120,8 @@ function* createConverters( instanceCatalog ) {
 		createSchemaValiators( [
 			instanceMultivariateSchemaV1_0,
 			instanceMultivariateSchemaV1_1,
-			instanceMultivariateSchemaV2_0
+			instanceMultivariateSchemaV2_0,
+			instanceMultivariateSchemaV2_1
 		] ),
 		multiVariationMapper,
 		instanceEnvironmentMapper,
@@ -122,7 +132,8 @@ function* createConverters( instanceCatalog ) {
 		booleanFeatureKind,
 		createSchemaValiators( [
 			orgBooleanSchemaV1_0,
-			orgBooleanSchemaV1_1
+			orgBooleanSchemaV1_1,
+			orgBooleanSchemaV1_2
 		] ),
 		booleanVariationMapper,
 		orgEnvironmentMapper,
@@ -134,7 +145,8 @@ function* createConverters( instanceCatalog ) {
 		createSchemaValiators( [
 			orgMultivariateSchemaV1_0,
 			orgMultivariateSchemaV1_1,
-			orgMultivariateSchemaV2_0
+			orgMultivariateSchemaV2_0,
+			orgMultivariateSchemaV2_1
 		] ),
 		multiVariationMapper,
 		orgEnvironmentMapper,

@@ -1,0 +1,71 @@
+{
+	"$schema": "http://schemas.dev.brightspace.com/feature-flags/farm-multivariate/v3_0.json",
+	"name": "Fruit",
+	"description": "A flag for the extra type of fruit grown on the farm",
+	"rallyId": "DE77777",
+	"tags": [
+		"mocha",
+		"test",
+		"ABC"
+	],
+	"variations": [
+		{
+			"key": "none",
+			"name": "No Fruit",
+			"description": "No fruit is grown",
+			"value": 0
+		},
+		{
+			"key": "bananas",
+			"name": "Bananas",
+			"description": "Bananas are grown",
+			"value": 1
+		},
+		{
+			"key": "grapes",
+			"name": "Grapes",
+			"description": "Grapes are grown",
+			"value": 2
+		}
+	],
+	"environments": {
+		"production": {
+			"defaultVariation": "none",
+			"targets": [
+				{
+					"farms": [
+						"cows",
+						"chickens"
+					],
+					"variation": "bananas"
+				},
+				{
+					"farms": [
+						{
+							"farmId": "test998dev",
+							"comments": "horses"
+						}
+					],
+					"variation": "grapes"
+				}
+			]
+		},
+		"development": {
+			"defaultVariation": "grapes",
+			"rules": [
+				{
+					"versions": {
+						"start": "10.8.4.0"
+					},
+					"variation": "none"
+				},
+				{
+					"dataCenters": [
+						"us04"
+					],
+					"variation": "bananas"
+				}
+			]
+		}
+	}
+}

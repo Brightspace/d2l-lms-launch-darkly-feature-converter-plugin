@@ -20,28 +20,34 @@ const MultiVariationMapper = require( './variations/MultiVariationMapper.js' );
 const farmBooleanSchemaV1_0 = require( '../schemas/farm-boolean/v1_0.json' );
 const farmBooleanSchemaV1_1 = require( '../schemas/farm-boolean/v1_1.json' );
 const farmBooleanSchemaV1_2 = require( '../schemas/farm-boolean/v1_2.json' );
+const farmBooleanSchemaV3_0 = require( '../schemas/farm-boolean/v3_0.json' );
 
 const farmMultivariateSchemaV1_0 = require( '../schemas/farm-multivariate/v1_0.json' );
 const farmMultivariateSchemaV1_1 = require( '../schemas/farm-multivariate/v1_1.json' );
+const farmMultivariateSchemaV3_0 = require( '../schemas/farm-multivariate/v3_0.json' );
 
 const instanceBooleanSchemaV1_0 = require( '../schemas/instance-boolean/v1_0.json' );
 const instanceBooleanSchemaV1_1 = require( '../schemas/instance-boolean/v1_1.json' );
 const instanceBooleanSchemaV1_2 = require( '../schemas/instance-boolean/v1_2.json' );
 const instanceBooleanSchemaV1_3 = require( '../schemas/instance-boolean/v1_3.json' );
+const instanceBooleanSchemaV3_0 = require( '../schemas/instance-boolean/v3_0.json' );
 
 const instanceMultivariateSchemaV1_0 = require( '../schemas/instance-multivariate/v1_0.json' );
 const instanceMultivariateSchemaV1_1 = require( '../schemas/instance-multivariate/v1_1.json' );
 const instanceMultivariateSchemaV2_0 = require( '../schemas/instance-multivariate/v2_0.json' );
 const instanceMultivariateSchemaV2_1 = require( '../schemas/instance-multivariate/v2_1.json' );
+const instanceMultivariateSchemaV3_0 = require( '../schemas/instance-multivariate/v3_0.json' );
 
 const orgBooleanSchemaV1_0 = require( '../schemas/org-boolean/v1_0.json' );
 const orgBooleanSchemaV1_1 = require( '../schemas/org-boolean/v1_1.json' );
 const orgBooleanSchemaV1_2 = require( '../schemas/org-boolean/v1_2.json' );
+const orgBooleanSchemaV3_0 = require( '../schemas/org-boolean/v3_0.json' );
 
 const orgMultivariateSchemaV1_0 = require( '../schemas/org-multivariate/v1_0.json' );
 const orgMultivariateSchemaV1_1 = require( '../schemas/org-multivariate/v1_1.json' );
 const orgMultivariateSchemaV2_0 = require( '../schemas/org-multivariate/v2_0.json' );
 const orgMultivariateSchemaV2_1 = require( '../schemas/org-multivariate/v2_1.json' );
+const orgMultivariateSchemaV3_0 = require( '../schemas/org-multivariate/v3_0.json' );
 
 const booleanFeatureKind = 'boolean';
 const multivariateFeatureKind = 'multivariate';
@@ -84,7 +90,8 @@ function* createConverters( instanceCatalog ) {
 		createSchemaValiators( [
 			farmBooleanSchemaV1_0,
 			farmBooleanSchemaV1_1,
-			farmBooleanSchemaV1_2
+			farmBooleanSchemaV1_2,
+			farmBooleanSchemaV3_0
 		] ),
 		booleanVariationMapper,
 		farmEnvironmentMapper,
@@ -95,7 +102,8 @@ function* createConverters( instanceCatalog ) {
 		multivariateFeatureKind,
 		createSchemaValiators( [
 			farmMultivariateSchemaV1_0,
-			farmMultivariateSchemaV1_1
+			farmMultivariateSchemaV1_1,
+			farmMultivariateSchemaV3_0
 		] ),
 		multiVariationMapper,
 		farmEnvironmentMapper,
@@ -108,7 +116,8 @@ function* createConverters( instanceCatalog ) {
 			instanceBooleanSchemaV1_0,
 			instanceBooleanSchemaV1_1,
 			instanceBooleanSchemaV1_2,
-			instanceBooleanSchemaV1_3
+			instanceBooleanSchemaV1_3,
+			instanceBooleanSchemaV3_0
 		] ),
 		booleanVariationMapper,
 		instanceEnvironmentMapper,
@@ -121,7 +130,8 @@ function* createConverters( instanceCatalog ) {
 			instanceMultivariateSchemaV1_0,
 			instanceMultivariateSchemaV1_1,
 			instanceMultivariateSchemaV2_0,
-			instanceMultivariateSchemaV2_1
+			instanceMultivariateSchemaV2_1,
+			instanceMultivariateSchemaV3_0
 		] ),
 		multiVariationMapper,
 		instanceEnvironmentMapper,
@@ -133,7 +143,8 @@ function* createConverters( instanceCatalog ) {
 		createSchemaValiators( [
 			orgBooleanSchemaV1_0,
 			orgBooleanSchemaV1_1,
-			orgBooleanSchemaV1_2
+			orgBooleanSchemaV1_2,
+			orgBooleanSchemaV3_0
 		] ),
 		booleanVariationMapper,
 		orgEnvironmentMapper,
@@ -146,7 +157,8 @@ function* createConverters( instanceCatalog ) {
 			orgMultivariateSchemaV1_0,
 			orgMultivariateSchemaV1_1,
 			orgMultivariateSchemaV2_0,
-			orgMultivariateSchemaV2_1
+			orgMultivariateSchemaV2_1,
+			orgMultivariateSchemaV3_0
 		] ),
 		multiVariationMapper,
 		orgEnvironmentMapper,

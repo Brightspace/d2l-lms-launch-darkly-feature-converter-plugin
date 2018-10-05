@@ -1,8 +1,10 @@
 const _ = require( 'lodash' );
 const assert = require( 'chai' ).assert;
 const convertersPlugin = require( '../src/index.js' );
+const formatFileUrl = require( 'file-url' );
 const fsUtil = require( 'fs' );
 const pathUtil = require( 'path' );
+
 
 describe( 'EndToEndTests', function() {
 
@@ -10,10 +12,15 @@ describe( 'EndToEndTests', function() {
 
 	this.beforeAll( function( done ) {
 
+		const path = pathUtil.join( __dirname, 'instanceCatalog.json' );
+		const fileUrl = formatFileUrl( path );
+		process.env.D2L_LMS_INSTANCE_CATALOG_SOURCE = fileUrl;
+
 		const options = {};
 		convertersPlugin( options, ( err, converters ) => {
 
 			if( err ) {
+				delete process.env.D2L_LMS_INSTANCE_CATALOG_SOURCE;
 				return done( err );
 			}
 
@@ -23,6 +30,7 @@ describe( 'EndToEndTests', function() {
 				} );
 			} );
 
+			delete process.env.D2L_LMS_INSTANCE_CATALOG_SOURCE;
 			return done();
 		} );
 	} );

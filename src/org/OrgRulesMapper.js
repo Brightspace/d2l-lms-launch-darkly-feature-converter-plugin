@@ -1,8 +1,9 @@
 const _ = require( 'lodash' );
+const duplicatesDeep = require( '../utils.js' ).duplicatesDeep;
 const instanceTypeMapper = require( '../instanceTypeMapper' );
 const sortableVersionRangeParser = require( '../sortableVersionRangeParser.js' );
 
-function* mapClauses( definition ) {
+function* mapClauses( definition, instanceCatalog ) {
 
 	if( definition.awsRegions ) {
 
@@ -63,13 +64,53 @@ function* mapClauses( definition ) {
 			};
 		}
 	}
+
+	const tenantDomains = definition.tenantDomains;
+	if( tenantDomains ) {
+
+		if( !versions ) {
+			throw new Error( 'Tenants can only be targetted in rules for specific versions' );
+		}
+
+		const implicitTenantIds = _.map(
+			tenantDomains || [],
+			tenantDomain => instanceCatalog.mapTenantDomain( tenantDomain )
+		);
+
+		const uniqueTenantIds = _.orderBy(
+			_.uniq( implicitTenantIds )
+		);
+
+		if( implicitTenantIds.length !== uniqueTenantIds.length ) {
+
+			const duplicates = _.orderBy(
+				duplicatesDeep( [
+					implicitTenantIds
+				] )
+			);
+
+			const duplicatesStr = _.join( duplicates, ', ' );
+			throw new Error( `Tenant domains are duplicated in rule: ${duplicatesStr}` );
+		}
+
+		yield {
+			attribute: 'key',
+			op: 'in',
+			values: uniqueTenantIds,
+			negate: false
+		};
+	}
 }
 
 module.exports = class OrgRulesMapper {
 
+	constructor( instanceCatalog ) {
+		this._instanceCatalog = instanceCatalog;
+	}
+
 	mapRule( definition, variationIndexMap ) {
 
-		const clauses = Array.from( mapClauses( definition ) );
+		const clauses = Array.from( mapClauses( definition, this._instanceCatalog ) );
 		const variation = variationIndexMap.getIndex( definition.variation );
 
 		return {

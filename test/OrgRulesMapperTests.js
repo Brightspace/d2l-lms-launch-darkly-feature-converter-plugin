@@ -1,8 +1,17 @@
 const assert = require( 'chai' ).assert;
+const InstanceCatalog = require( '../src/instanceCatalog/InstanceCatalog.js' );
 const OrgRulesMapper = require( '../src/org/OrgRulesMapper.js' );
 const VariationIndexMap = require( '../src/variations/VariationIndexMap.js' );
 
-const mapper = new OrgRulesMapper();
+const instanceCatalog = new InstanceCatalog(
+	new Map(),
+	new Map( [
+		[ 'www.tenant_a.org', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa' ],
+		[ 'www.tenant_c.org', 'cccccccc-cccc-cccc-cccc-cccccccccccc' ]
+	] )
+);
+
+const mapper = new OrgRulesMapper( instanceCatalog );
 const variationIndexMap = new VariationIndexMap( { abc: 2 } );
 
 describe( 'OrgRulesMapperTests', function() {
@@ -230,4 +239,102 @@ describe( 'OrgRulesMapperTests', function() {
 			/^Version start is greater than version end: 10.8.5.0 > 10.8.4.0$/
 		);
 	} );
+
+	it( 'should map tenant domains for specific version start', function() {
+
+		const definition = {
+			versions: {
+				start: '10.8.4.12345'
+			},
+			tenantDomains: [
+				'www.tenant_a.org',
+				'www.tenant_c.org'
+			],
+			variation: 'abc'
+		};
+
+		const rule = mapper.mapRule( definition, variationIndexMap );
+
+		assert.deepEqual( rule, {
+			clauses: [
+				{
+					attribute: 'productVersion',
+					op: 'greaterThanOrEqual',
+					values: [
+						10080412345
+					],
+					negate: false
+				},
+				{
+					attribute: 'key',
+					op: 'in',
+					values: [
+						'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+						'cccccccc-cccc-cccc-cccc-cccccccccccc'
+					],
+					negate: false
+				}
+			],
+			variation: 2 
+		} );
+	} );
+
+	it( 'should throw if unknown tenant domain', function() {
+
+		const definition = {
+			versions: {
+				start: '10.8.4.12345'
+			},
+			tenantDomains: [
+				'www.tenant_b.org'
+			],
+			variation: 'abc'
+		};
+
+		assert.throws(
+			() => {
+				mapper.mapRule( definition, variationIndexMap );
+			},
+			/^Unknown tenant domain: www.tenant_b.org$/
+		);
+	} );
+
+	it( 'should throw if tenant domains duplicated', function() {
+
+		const definition = {
+			versions: {
+				start: '10.8.4.12345'
+			},
+			tenantDomains: [
+				'www.tenant_a.org',
+				'www.tenant_a.org'
+			],
+			variation: 'abc'
+		};
+
+		assert.throws(
+			() => {
+				mapper.mapRule( definition, variationIndexMap );
+			},
+			/^Tenant domains are duplicated in rule: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa$/
+		);
+	} );
+
+	it( 'should throw if tenant domains defined without versions', function() {
+
+		const definition = {
+			tenantDomains: [
+				'www.tenant_a.org'
+			],
+			variation: 'abc'
+		};
+
+		assert.throws(
+			() => {
+				mapper.mapRule( definition, variationIndexMap );
+			},
+			/^Tenants can only be targetted in rules for specific versions$/
+		);
+	} );
+
 } );

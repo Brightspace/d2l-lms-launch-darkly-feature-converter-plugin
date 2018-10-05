@@ -83,7 +83,7 @@ function* createConverters( instanceCatalog ) {
 	const farmEnvironmentMapper = new EnvironmentMapper( farmTargetsMapper, farmRulesMapper );
 
 	const instanceTargetsMapper = new InstanceTargetsMapper( instanceCatalog );
-	const instanceRulesMapper = new InstanceRulesMapper();
+	const instanceRulesMapper = new InstanceRulesMapper( instanceCatalog );
 	const instanceEnvironmentMapper = new EnvironmentMapper( instanceTargetsMapper, instanceRulesMapper );
 
 	const orgTargetsMapper = new OrgTargetsMapper( instanceCatalog );

@@ -1,8 +1,9 @@
 const _ = require( 'lodash' );
+const duplicatesDeep = require( '../utils.js' ).duplicatesDeep;
 const instanceTypeMapper = require( '../instanceTypeMapper' );
 const sortableVersionRangeParser = require( '../sortableVersionRangeParser.js' );
 
-function* mapClauses( definition ) {
+function* mapClauses( definition, instanceCatalog ) {
 
 	if( definition.dataCenters ) {
 
@@ -51,13 +52,58 @@ function* mapClauses( definition ) {
 			};
 		}
 	}
+
+	const instanceNames = definition.instanceNames;
+	if( instanceNames ) {
+
+		if( !versions ) {
+			throw new Error( 'Instances can only be targetted in rules for specific versions' );
+		}
+
+		const implicitInstanceIds = _.map(
+			instanceNames || [],
+			instanceName => instanceCatalog.mapInstanceName( instanceName )
+		);
+
+		const uniqueInstanceIds = _.orderBy(
+			_.uniq( implicitInstanceIds )
+		);
+
+		if( implicitInstanceIds.length !== uniqueInstanceIds.length ) {
+
+			const duplicates = _.orderBy(
+				duplicatesDeep( [
+					implicitInstanceIds
+				] )
+			);
+
+			const duplicatesStr = _.join( duplicates, ', ' );
+			throw new Error( `Instances are duplicated in rule: ${duplicatesStr}` );
+		}
+
+		const instanceIdKeys = _.map(
+			uniqueInstanceIds,
+			instanceId => `instance:${ instanceId }`
+		);
+
+		yield {
+			attribute: 'key',
+			op: 'in',
+			values: instanceIdKeys,
+			negate: false
+		};
+	}
 }
 
 module.exports = class InstanceRulesMapper {
 
+	constructor( instanceCatalog ) {
+		this._instanceCatalog = instanceCatalog;
+	}
+
 	mapRule( definition, variationIndexMap ) {
 
-		const clauses = Array.from( mapClauses( definition ) );
+		const clauses = Array.from( mapClauses( definition, this._instanceCatalog ) );
 		const variation = variationIndexMap.getIndex( definition.variation );
 
 		return {

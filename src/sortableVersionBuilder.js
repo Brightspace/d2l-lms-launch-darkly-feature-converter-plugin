@@ -1,12 +1,23 @@
+function parseRevision( revision, start ) {
+	if( revision !== undefined ) {
+		return parseInt( revision );
+	}
 
-module.exports = function( version ) {
+	if( start ) {
+		return 0;
+	}
 
-	const parts = version.match( /^([1-9][0-9])\.([1-9]?[0-9])\.([1-9]?[0-9])\.([1-9]?[0-9]{0,4})$/ );
+	return 99999;
+}
+
+module.exports = function( version, start ) {
+
+	const parts = version.match( /^([1-9][0-9])\.([1-9]?[0-9])\.([1-9]?[0-9])(?:\.([1-9]?[0-9]{0,4}))?$/ );
 
 	const major = parseInt( parts[ 1 ] );
 	const minor = parseInt( parts[ 2 ] );
 	const build = parseInt( parts[ 3 ] );
-	const revision = parseInt( parts[ 4 ] );
+	const revision = parseRevision( parts[4], start );
 
 	return (
 		major * 1e9

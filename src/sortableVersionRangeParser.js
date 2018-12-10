@@ -9,11 +9,11 @@ module.exports = function( versions ) {
 	const result = {};
 
 	if( versions.start ) {
-		result.start = sortableVersionBuilder( versions.start );
+		result.start = sortableVersionBuilder( versions.start, true );
 	}
 
 	if( versions.end ) {
-		result.end = sortableVersionBuilder( versions.end );
+		result.end = sortableVersionBuilder( versions.end, false );
 	}
 	
 	if( result.start && result.end ) {

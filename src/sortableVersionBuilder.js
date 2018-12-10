@@ -1,23 +1,19 @@
-function parseRevision( revision, start ) {
+function parseRevision( revision, defaultRevision ) {
 	if( revision !== undefined ) {
 		return parseInt( revision );
 	}
 
-	if( start ) {
-		return 0;
-	}
-
-	return 99999;
+	return defaultRevision;
 }
 
-module.exports = function( version, start ) {
+module.exports = function( version, defaultRevision ) {
 
 	const parts = version.match( /^([1-9][0-9])\.([1-9]?[0-9])\.([1-9]?[0-9])(?:\.([1-9]?[0-9]{0,4}))?$/ );
 
 	const major = parseInt( parts[ 1 ] );
 	const minor = parseInt( parts[ 2 ] );
 	const build = parseInt( parts[ 3 ] );
-	const revision = parseRevision( parts[4], start );
+	const revision = parseRevision( parts[4], defaultRevision );
 
 	return (
 		major * 1e9

@@ -2,45 +2,27 @@ const assert = require( 'chai' ).assert;
 const sortableVersionBuilder = require( '../src/sortableVersionBuilder.js' );
 
 describe( 'sortableVersionBuilder', function() {
+	it( 'should convert minimum', function() {
 
-	describe( 'range start', function() {
-		const rangeStart = true;
-		commonTests( rangeStart );
-
-		it( 'should treat missing revision as minimum', function() {
-			const value = sortableVersionBuilder( '10.8.8', rangeStart );
-			assert.equal( value,  10080800000 );
-		} );
+		const value = sortableVersionBuilder( '10.0.0.0' );
+		assert.equal( value, 10000000000 );
 	} );
 
-	describe( 'range end', function() {
-		const rangeEnd = false;
+	it( 'should convert single digits', function() {
 
-		commonTests( rangeEnd );
-
-		it( 'should treat missing revision as maximum', function() {
-			const value = sortableVersionBuilder( '10.8.8', rangeEnd );
-			assert.equal( value,  10080899999 );
-		} );
+		const value = sortableVersionBuilder( '10.1.2.3' );
+		assert.equal( value, 10010200003 );
 	} );
 
-	function commonTests(start) {
-		it( 'should convert minimum', function() {
+	it( 'should convert full digits', function() {
 
-			const value = sortableVersionBuilder( '10.0.0.0', start );
-			assert.equal( value, 10000000000 );
-		} );
+		const value = sortableVersionBuilder( '99.88.77.66666' );
+		assert.equal( value, 99887766666 );
+	} );
 
-		it( 'should convert single digits', function() {
+	it( 'should use default revision when not specified', function() {
 
-			const value = sortableVersionBuilder( '10.1.2.3', start );
-			assert.equal( value, 10010200003 );
-		} );
-
-		it( 'should convert full digits', function() {
-
-			const value = sortableVersionBuilder( '99.88.77.66666', start );
-			assert.equal( value, 99887766666 );
-		} );
-	}
+		const value = sortableVersionBuilder( '99.88.77', 54321 );
+		assert.equal( value, 99887754321 );
+	} );
 } );

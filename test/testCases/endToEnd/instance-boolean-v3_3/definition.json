@@ -1,0 +1,57 @@
+{
+	"$schema": "http://schemas.dev.brightspace.com/feature-flags/instance-boolean/v3_3.json",
+	"name": "Switch",
+	"description": "Simple on/off switch",
+	"rallyId": "DE77777",
+	"tags": [
+		"mocha",
+		"test",
+		"ABC"
+	],
+	"variations": {
+		"true": {
+			"name": "On",
+			"description": "Turns the switch on"
+		},
+		"false": {
+			"name": "Off",
+			"description": "Turns the switch off"
+		}
+	},
+	"environments": {
+		"production": {
+			"defaultVariation": "false",
+			"targets": [
+				{
+					"instanceIds": [
+						"bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"
+					],
+					"variation": "false"
+				}
+			],
+			"rules": [
+				{
+					"instanceTypes": [
+						"sales",
+						"prod"
+					],
+					"variation": "true"
+				}
+			]
+		},
+		"development": {
+			"defaultVariation": "true",
+			"rules": [
+				{
+					"versions": {
+						"start": "10.8.4.0"
+					},
+					"instanceNames": [
+						"instance_a"
+					],
+					"variation": "false"
+				}
+			]
+		}
+	}
+}

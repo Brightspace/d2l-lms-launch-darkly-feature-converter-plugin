@@ -5,9 +5,10 @@ const instanceTypeMapper = require( '../src/instanceTypeMapper.js' );
 describe( 'instanceTypeMapper', function() {
 
 	_.forEach( [
+		[ 'dev', 'Dev' ],
 		[ 'prod', 'Prod' ],
+		[ 'sales', 'Sales' ],
 		[ 'test', 'Test' ],
-		[ 'dev', 'Dev' ]
 	], pair => {
 
 		const [ key, expectedInstanceType ] = pair;

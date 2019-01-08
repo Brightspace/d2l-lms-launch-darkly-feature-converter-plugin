@@ -50,6 +50,7 @@ const orgBooleanSchemaV1_2 = require( '../schemas/org-boolean/v1_2.json' );
 const orgBooleanSchemaV3_0 = require( '../schemas/org-boolean/v3_0.json' );
 const orgBooleanSchemaV3_2 = require( '../schemas/org-boolean/v3_2.json' );
 const orgBooleanSchemaV3_3 = require( '../schemas/org-boolean/v3_3.json' );
+const orgBooleanSchemaV3_4 = require( '../schemas/org-boolean/v3_4.json' );
 
 const orgMultivariateSchemaV1_0 = require( '../schemas/org-multivariate/v1_0.json' );
 const orgMultivariateSchemaV1_1 = require( '../schemas/org-multivariate/v1_1.json' );
@@ -59,6 +60,7 @@ const orgMultivariateSchemaV3_0 = require( '../schemas/org-multivariate/v3_0.jso
 const orgMultivariateSchemaV3_1 = require( '../schemas/org-multivariate/v3_1.json' );
 const orgMultivariateSchemaV3_2 = require( '../schemas/org-multivariate/v3_2.json' );
 const orgMultivariateSchemaV3_3 = require( '../schemas/org-multivariate/v3_3.json' );
+const orgMultivariateSchemaV3_4 = require( '../schemas/org-multivariate/v3_4.json' );
 
 const booleanFeatureKind = 'boolean';
 const multivariateFeatureKind = 'multivariate';
@@ -163,7 +165,8 @@ function* createConverters( instanceCatalog ) {
 			orgBooleanSchemaV1_2,
 			orgBooleanSchemaV3_0,
 			orgBooleanSchemaV3_2,
-			orgBooleanSchemaV3_3
+			orgBooleanSchemaV3_3,
+			orgBooleanSchemaV3_4
 		] ),
 		booleanVariationMapper,
 		orgEnvironmentMapper,
@@ -180,7 +183,8 @@ function* createConverters( instanceCatalog ) {
 			orgMultivariateSchemaV3_0,
 			orgMultivariateSchemaV3_1,
 			orgMultivariateSchemaV3_2,
-			orgMultivariateSchemaV3_3
+			orgMultivariateSchemaV3_3,
+			orgMultivariateSchemaV3_4
 		] ),
 		multiVariationMapper,
 		orgEnvironmentMapper,

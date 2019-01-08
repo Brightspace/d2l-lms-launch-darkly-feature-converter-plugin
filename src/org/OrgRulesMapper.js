@@ -66,7 +66,9 @@ function* mapClauses( definition, instanceCatalog ) {
 	}
 
 	const tenantDomains = definition.tenantDomains;
-	if( tenantDomains ) {
+	const tenants = definition.tenants;
+
+	if( tenantDomains || tenants ) {
 
 		if( !versions ) {
 			throw new Error( 'Tenants can only be targetted in rules for specific versions' );
@@ -77,20 +79,37 @@ function* mapClauses( definition, instanceCatalog ) {
 			tenantDomain => instanceCatalog.mapTenantDomain( tenantDomain )
 		);
 
-		const uniqueTenantIds = _.orderBy(
-			_.uniq( implicitTenantIds )
+		const mixedExplicitTenantIds = _.map(
+			definition.tenants || [],
+			tenant => {
+
+				if( _.isString( tenant ) ) {
+					return tenant;
+				}
+
+				return tenant.tenantId;
+			}
 		);
 
-		if( implicitTenantIds.length !== uniqueTenantIds.length ) {
+		const allTenantIds = _.concat(
+			implicitTenantIds,
+			mixedExplicitTenantIds
+		);
+
+		const uniqueTenantIds = _.orderBy(
+			_.uniq( allTenantIds )
+		);
+
+		if( allTenantIds.length !== uniqueTenantIds.length ) {
 
 			const duplicates = _.orderBy(
 				duplicatesDeep( [
-					implicitTenantIds
+					allTenantIds
 				] )
 			);
 
 			const duplicatesStr = _.join( duplicates, ', ' );
-			throw new Error( `Tenant domains are duplicated in rule: ${duplicatesStr}` );
+			throw new Error( `Tenant ids are duplicated in rule: ${duplicatesStr}` );
 		}
 
 		yield {

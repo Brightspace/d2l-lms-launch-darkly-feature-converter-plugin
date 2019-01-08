@@ -1,0 +1,64 @@
+{
+	"$schema": "http://schemas.dev.brightspace.com/feature-flags/org-boolean/v3_4.json",
+	"name": "Switch",
+	"description": "Simple on/off switch",
+	"rallyId": "DE77777",
+	"tags": [
+		"mocha",
+		"test",
+		"ABC"
+	],
+	"variations": {
+		"true": {
+			"name": "On",
+			"description": "Turns the switch on"
+		},
+		"false": {
+			"name": "Off",
+			"description": "Turns the switch off"
+		}
+	},
+	"environments": {
+		"production": {
+			"defaultVariation": "false",
+			"targets": [
+				{
+					"tenantIds": [
+						"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+					],
+					"variation": "true"
+				}
+			],
+			"rules": [
+				{
+					"instanceTypes": [
+						"sales",
+						"prod"
+					],
+					"variation": "true"
+				}
+			]
+		},
+		"development": {
+			"defaultVariation": "true",
+			"rules": [
+				{
+					"versions": {
+						"start": "10.8.4.0"
+					},
+					"tenantDomains": [
+						"www.tenant_b.org"
+					],
+					"tenants": [
+						"e8bac343-db2e-4dea-8e9d-b4e51ff088b9",
+						{
+							"tenantId": "aedb73b4-137c-4b78-8f40-090ba126ac6b",
+							"comments": "Random"
+						}
+					],
+					"variation": "false"
+				}
+			]
+		}
+	}
+}

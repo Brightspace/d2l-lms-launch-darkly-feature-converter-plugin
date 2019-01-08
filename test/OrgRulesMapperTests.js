@@ -278,6 +278,136 @@ describe( 'OrgRulesMapperTests', function() {
 			variation: 2 
 		} );
 	} );
+	
+	it( 'should map tenant ids for specific version start', function() {
+
+		const definition = {
+			versions: {
+				start: '10.8.4.12345'
+			},
+			tenants: [
+				'cccccccc-cccc-cccc-cccc-cccccccccccc',
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+			],
+			variation: 'abc'
+		};
+
+		const rule = mapper.mapRule( definition, variationIndexMap );
+
+		assert.deepEqual( rule, {
+			clauses: [
+				{
+					attribute: 'productVersion',
+					op: 'greaterThanOrEqual',
+					values: [
+						10080412345
+					],
+					negate: false
+				},
+				{
+					attribute: 'key',
+					op: 'in',
+					values: [
+						'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+						'cccccccc-cccc-cccc-cccc-cccccccccccc'
+					],
+					negate: false
+				}
+			],
+			variation: 2 
+		} );
+	} );
+	
+	it( 'should map tenants with comments for specific version start', function() {
+
+		const definition = {
+			versions: {
+				start: '10.8.4.12345'
+			},
+			tenants: [
+				{
+					tenantId: 'cccccccc-cccc-cccc-cccc-cccccccccccc',
+					comments: 'The cookies tenant'
+				},
+				{
+					tenantId: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+					comments: 'The apples tenant'
+				}
+			],
+			variation: 'abc'
+		};
+
+		const rule = mapper.mapRule( definition, variationIndexMap );
+
+		assert.deepEqual( rule, {
+			clauses: [
+				{
+					attribute: 'productVersion',
+					op: 'greaterThanOrEqual',
+					values: [
+						10080412345
+					],
+					negate: false
+				},
+				{
+					attribute: 'key',
+					op: 'in',
+					values: [
+						'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+						'cccccccc-cccc-cccc-cccc-cccccccccccc'
+					],
+					negate: false
+				}
+			],
+			variation: 2 
+		} );
+	} );
+	
+	it( 'should map mixed tenants for specific version start', function() {
+
+		const definition = {
+			versions: {
+				start: '10.8.4.12345'
+			},
+			tenantDomains: [
+				'www.tenant_a.org'
+			],
+			tenants: [
+				{
+					tenantId: 'cccccccc-cccc-cccc-cccc-cccccccccccc',
+					comments: 'The cookies tenant'
+				},
+				'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'
+			],
+			variation: 'abc'
+		};
+
+		const rule = mapper.mapRule( definition, variationIndexMap );
+
+		assert.deepEqual( rule, {
+			clauses: [
+				{
+					attribute: 'productVersion',
+					op: 'greaterThanOrEqual',
+					values: [
+						10080412345
+					],
+					negate: false
+				},
+				{
+					attribute: 'key',
+					op: 'in',
+					values: [
+						'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+						'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+						'cccccccc-cccc-cccc-cccc-cccccccccccc'
+					],
+					negate: false
+				}
+			],
+			variation: 2 
+		} );
+	} );
 
 	it( 'should throw if unknown tenant domain', function() {
 
@@ -316,7 +446,30 @@ describe( 'OrgRulesMapperTests', function() {
 			() => {
 				mapper.mapRule( definition, variationIndexMap );
 			},
-			/^Tenant domains are duplicated in rule: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa$/
+			/^Tenant ids are duplicated in rule: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa$/
+		);
+	} );
+	
+	it( 'should throw if mixed tenants duplicated', function() {
+
+		const definition = {
+			versions: {
+				start: '10.8.4.12345'
+			},
+			tenantDomains: [
+				'www.tenant_a.org'
+			],
+			tenants: [
+				'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+			],
+			variation: 'abc'
+		};
+
+		assert.throws(
+			() => {
+				mapper.mapRule( definition, variationIndexMap );
+			},
+			/^Tenant ids are duplicated in rule: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa$/
 		);
 	} );
 

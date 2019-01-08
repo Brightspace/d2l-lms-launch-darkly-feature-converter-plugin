@@ -43,11 +43,7 @@ module.exports = class OrgTargetsMapper {
 		if( allTenantIds.length !== uniqueTenantIds.length ) {
 
 			const duplicates = _.orderBy(
-				duplicatesDeep( [
-					implicitTenantIds,
-					explicitTenantIds,
-					mixedExplicitTenantIds
-				] )
+				duplicatesDeep( allTenantIds )
 			);
 
 			const duplicatesStr = _.join( duplicates, ', ' );

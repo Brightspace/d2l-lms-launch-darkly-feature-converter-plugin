@@ -1,0 +1,107 @@
+{
+	"name": "Switch",
+	"kind": "boolean",
+	"description": "Simple on/off switch",
+	"includeInSnippet": false,
+	"variations": [
+		{
+			"name": "On",
+			"description": "Turns the switch on",
+			"value": true
+		},
+		{
+			"name": "Off",
+			"description": "Turns the switch off",
+			"value": false
+		}
+	],
+	"temporary": true,
+	"tags": [
+		"ABC",
+		"lms-generated-flag",
+		"lms-org-flag",
+		"mocha",
+		"test"
+	],
+	"environments": {
+		"production": {
+			"on": true,
+			"targets": [
+				{
+					"values": [
+						"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+					],
+					"variation": 0
+				}
+			],
+			"rules": [
+				{
+					"variation": 0,
+					"clauses": [
+						{
+							"attribute": "instanceType",
+							"op": "in",
+							"values": [
+								"Prod",
+								"Sales"
+							],
+							"negate": false
+						}
+					]
+				}
+			],
+			"fallthrough": {
+				"variation": 1
+			},
+			"offVariation": 1
+		},
+		"test": {
+			"on": true,
+			"targets": [],
+			"rules": [
+				{
+					"variation": 1,
+					"clauses": [
+						{
+							"attribute": "productVersion",
+							"op": "greaterThanOrEqual",
+							"values": [
+								10080400000
+							],
+							"negate": false
+						},
+						{
+							"attribute": "key",
+							"op": "in",
+							"values": [
+								"aedb73b4-137c-4b78-8f40-090ba126ac6b",
+								"bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+								"e8bac343-db2e-4dea-8e9d-b4e51ff088b9"
+							],
+							"negate": false
+						}
+					]
+				},
+				{
+					"variation": 0,
+					"clauses": [
+						{
+							"attribute": "datacenter",
+							"op": "in",
+							"values": [
+								"devlms",
+								"dmz",
+								"us04"
+							],
+							"negate": false
+						}
+					]
+				}
+			],
+			"fallthrough": {
+				"variation": 0
+			},
+			"offVariation": 0
+		}
+	}
+}

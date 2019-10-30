@@ -73,6 +73,8 @@ jobs:
 
   diff_aws:
     executor: aws-cli/default
+    environment:
+       AWS_DEFAULT_REGION: us-east-1
     steps:
       - checkout
       - aws-cli/install
@@ -86,6 +88,8 @@ jobs:
 
   deploy_aws:
     executor: aws-cli/default
+    environment:
+       AWS_DEFAULT_REGION: us-east-1
     steps:
       - checkout
       - aws-cli/install

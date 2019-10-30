@@ -84,7 +84,7 @@ jobs:
 
       - run:
          name: aws s3 sync --dryrun
-         command: aws s3 sync --dryrun --profile default --size-only ./schemas/ s3://schemas.dev.brightspace.com/feature-flags/
+         command: aws s3 sync --dryrun --profile default --size-only ./schemas/ s3://schemas.featureflags.d2ldev.com/lms/
 
   deploy_aws:
     executor: aws-cli/default
@@ -99,7 +99,7 @@ jobs:
 
       - run:
          name: aws s3 sync
-         command: aws s3 sync --profile default --size-only ./schemas/ s3://schemas.dev.brightspace.com/feature-flags/
+         command: aws s3 sync --profile default --size-only ./schemas/ s3://schemas.featureflags.d2ldev.com/lms/
 
   deploy_npm:
     docker:

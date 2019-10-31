@@ -1,5 +1,5 @@
 {
-	"$schema": "http://schemas.dev.brightspace.com/feature-flags/instance-multivariate/v1_0.json",
+	"$schema": "http://schemas.featureflags.d2ldev.com/lms/instance-multivariate/v1_0.json",
 	"name": "Panda Classification",
 	"description": "WWF feature flag",
 	"variations": {

@@ -1,5 +1,5 @@
 {
-	"$schema": "http://schemas.dev.brightspace.com/feature-flags/instance-multivariate/v3_2.json",
+	"$schema": "http://schemas.featureflags.d2ldev.com/lms/instance-multivariate/v3_2.json",
 	"name": "Fruit",
 	"description": "A flag for the extra type of fruit grown on the field",
 	"rallyId": "DE77777",

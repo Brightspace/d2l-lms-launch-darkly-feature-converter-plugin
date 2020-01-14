@@ -1,5 +1,5 @@
 {
-	"$schema": "http://schemas.featureflags.d2ldev.com/lms/instance-boolean/v1_2.json",
+	"$schema": "http://schemas.featureflags.d2ldev.com/lms/instance-boolean/v3_5.json",
 	"name": "Switch",
 	"description": "Simple on/off switch",
 	"tags": [

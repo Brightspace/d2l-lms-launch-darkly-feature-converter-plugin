@@ -1,5 +1,5 @@
 {
-	"$schema": "http://schemas.featureflags.d2ldev.com/lms/org-multivariate/v3_3.json",
+	"$schema": "http://schemas.featureflags.d2ldev.com/lms/org-multivariate/v3_5.json",
 	"name": "Fruit",
 	"description": "A flag for the extra type of fruit grown on the field",
 	"rallyId": "DE77777",

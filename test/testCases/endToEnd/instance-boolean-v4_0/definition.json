@@ -1,0 +1,65 @@
+{
+	"$schema": "http://schemas.featureflags.d2ldev.com/lms/instance-boolean/v4_0.json",
+	"name": "Switch",
+	"description": "Simple on/off switch",
+	"rallyId": "DE77777",
+	"tags": [
+		"mocha",
+		"test",
+		"ABC"
+	],
+	"variations": {
+		"true": {
+			"name": "On",
+			"description": "Turns the switch on"
+		},
+		"false": {
+			"name": "Off",
+			"description": "Turns the switch off"
+		}
+	},
+	"environments": {
+		"production": {
+			"defaultVariation": "false",
+			"targets": [
+				{
+					"instanceIds": [
+						"bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"
+					],
+					"variation": "false"
+				}
+			],
+			"rules": [
+				{
+					"instanceTypes": [
+						"sales",
+						"prod"
+					],
+					"variation": "true"
+				}
+			]
+		},
+		"development": {
+			"defaultVariation": "true",
+			"rules": [
+				{
+					"versions": {
+						"start": "10.8.4.0"
+					},
+					"instanceNames": [
+						"instance_a"
+					],
+					"variation": "false"
+				},
+				{
+					"dataCenters": [
+						"us04",
+						"dmz",
+						"devlms"
+					],
+					"variation": "true"
+				}
+			]
+		}
+	}
+}

@@ -56,11 +56,17 @@ module.exports = class Converter {
 				variationsMap.indexes
 			);
 
+			const implicitTags = [];
+			if( definition.removedFromCode ) {
+				implicitTags.push( 'removed-from-code' );
+			}
+
 			const tags = _.orderBy(
 				_.uniq(
 					_.concat(
 						this._tags || [],
-						definition.tags || []
+						definition.tags || [],
+						implicitTags
 					)
 				)
 			);

@@ -20,26 +20,32 @@ const MultiVariationMapper = require( './variations/MultiVariationMapper.js' );
 const farmBooleanSchemaV3_5 = require( '../schemas/farm-boolean/v3_5.json' );
 const farmBooleanSchemaV4_0 = require( '../schemas/farm-boolean/v4_0.json' );
 const farmBooleanSchemaV4_1 = require( '../schemas/farm-boolean/v4_1.json' );
+const farmBooleanSchemaV4_2 = require( '../schemas/farm-boolean/v4_2.json' );
 
 const farmMultivariateSchemaV3_5 = require( '../schemas/farm-multivariate/v3_5.json' );
 const farmMultivariateSchemaV4_0 = require( '../schemas/farm-multivariate/v4_0.json' );
 const farmMultivariateSchemaV4_1 = require( '../schemas/farm-multivariate/v4_1.json' );
+const farmMultivariateSchemaV4_2 = require( '../schemas/farm-multivariate/v4_2.json' );
 
 const instanceBooleanSchemaV3_5 = require( '../schemas/instance-boolean/v3_5.json' );
 const instanceBooleanSchemaV4_0 = require( '../schemas/instance-boolean/v4_0.json' );
 const instanceBooleanSchemaV4_1 = require( '../schemas/instance-boolean/v4_1.json' );
+const instanceBooleanSchemaV4_2 = require( '../schemas/instance-boolean/v4_2.json' );
 
 const instanceMultivariateSchemaV3_5 = require( '../schemas/instance-multivariate/v3_5.json' );
 const instanceMultivariateSchemaV4_0 = require( '../schemas/instance-multivariate/v4_0.json' );
 const instanceMultivariateSchemaV4_1 = require( '../schemas/instance-multivariate/v4_1.json' );
+const instanceMultivariateSchemaV4_2 = require( '../schemas/instance-multivariate/v4_2.json' );
 
 const orgBooleanSchemaV3_5 = require( '../schemas/org-boolean/v3_5.json' );
 const orgBooleanSchemaV4_0 = require( '../schemas/org-boolean/v4_0.json' );
 const orgBooleanSchemaV4_1 = require( '../schemas/org-boolean/v4_1.json' );
+const orgBooleanSchemaV4_2 = require( '../schemas/org-boolean/v4_2.json' );
 
 const orgMultivariateSchemaV3_5 = require( '../schemas/org-multivariate/v3_5.json' );
 const orgMultivariateSchemaV4_0 = require( '../schemas/org-multivariate/v4_0.json' );
 const orgMultivariateSchemaV4_1 = require( '../schemas/org-multivariate/v4_1.json' );
+const orgMultivariateSchemaV4_2 = require( '../schemas/org-multivariate/v4_2.json' );
 
 const booleanFeatureKind = 'boolean';
 const multivariateFeatureKind = 'multivariate';
@@ -82,7 +88,8 @@ function* createConverters( instanceCatalog ) {
 		createSchemaValiators( [
 			farmBooleanSchemaV3_5,
 			farmBooleanSchemaV4_0,
-			farmBooleanSchemaV4_1
+			farmBooleanSchemaV4_1,
+			farmBooleanSchemaV4_2
 		] ),
 		booleanVariationMapper,
 		farmEnvironmentMapper,
@@ -94,7 +101,8 @@ function* createConverters( instanceCatalog ) {
 		createSchemaValiators( [
 			farmMultivariateSchemaV3_5,
 			farmMultivariateSchemaV4_0,
-			farmMultivariateSchemaV4_1
+			farmMultivariateSchemaV4_1,
+			farmMultivariateSchemaV4_2
 		] ),
 		multiVariationMapper,
 		farmEnvironmentMapper,
@@ -106,7 +114,8 @@ function* createConverters( instanceCatalog ) {
 		createSchemaValiators( [
 			instanceBooleanSchemaV3_5,
 			instanceBooleanSchemaV4_0,
-			instanceBooleanSchemaV4_1
+			instanceBooleanSchemaV4_1,
+			instanceBooleanSchemaV4_2
 		] ),
 		booleanVariationMapper,
 		instanceEnvironmentMapper,
@@ -118,7 +127,8 @@ function* createConverters( instanceCatalog ) {
 		createSchemaValiators( [
 			instanceMultivariateSchemaV3_5,
 			instanceMultivariateSchemaV4_0,
-			instanceMultivariateSchemaV4_1
+			instanceMultivariateSchemaV4_1,
+			instanceMultivariateSchemaV4_2
 		] ),
 		multiVariationMapper,
 		instanceEnvironmentMapper,
@@ -130,7 +140,8 @@ function* createConverters( instanceCatalog ) {
 		createSchemaValiators( [
 			orgBooleanSchemaV3_5,
 			orgBooleanSchemaV4_0,
-			orgBooleanSchemaV4_1
+			orgBooleanSchemaV4_1,
+			orgBooleanSchemaV4_2
 		] ),
 		booleanVariationMapper,
 		orgEnvironmentMapper,
@@ -142,7 +153,8 @@ function* createConverters( instanceCatalog ) {
 		createSchemaValiators( [
 			orgMultivariateSchemaV3_5,
 			orgMultivariateSchemaV4_0,
-			orgMultivariateSchemaV4_1
+			orgMultivariateSchemaV4_1,
+			orgMultivariateSchemaV4_2
 		] ),
 		multiVariationMapper,
 		orgEnvironmentMapper,

@@ -29,7 +29,7 @@
 			"minLength": 1
 		},
 		"removedFromCode": {
-			"$ref": "#/definitions/version",
+			"$ref": "#/definitions/semanticVersion",
 			"title": "The version the feature was removed from code"
 		},
 		"rallyId": {
@@ -169,14 +169,14 @@
 					"minProperties": 1,
 					"properties": {
 						"start": {
-							"$ref": "#/definitions/version",
+							"$ref": "#/definitions/buildVersion",
 							"title": "The version to start targetting at (inclusive)",
 							"examples": [
 								"10.8.4.12256"
 							]
 						},
 						"end": {
-							"$ref": "#/definitions/version",
+							"$ref": "#/definitions/buildVersion",
 							"title": "The version to stop targetting at (inclusive)",
 							"examples": [
 								"10.8.4.99999"
@@ -282,7 +282,11 @@
 				}
 			}
 		},
-		"version": {
+		"semanticVersion": {
+			"type": "string",
+			"pattern": "^[1-9][0-9]\\.[1-9]?[0-9]\\.[1-9]?[0-9]$"
+		},
+		"buildVersion": {
 			"type": "string",
 			"pattern": "^[1-9][0-9]\\.[1-9]?[0-9]\\.[1-9]?[0-9]\\.[1-9]?[0-9]{0,4}$"
 		}

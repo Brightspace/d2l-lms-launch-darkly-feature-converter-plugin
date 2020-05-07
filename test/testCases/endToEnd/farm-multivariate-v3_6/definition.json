@@ -1,0 +1,74 @@
+{
+	"$schema": "http://schemas.featureflags.d2ldev.com/lms/farm-multivariate/v3_6.json",
+	"name": "Fruit",
+	"description": "A flag for the extra type of fruit grown on the farm",
+	"removedFromCode": "20.20.6",
+	"rallyId": "DE77777",
+	"tags": [
+		"mocha",
+		"test",
+		"ABC"
+	],
+	"variations": [
+		{
+			"key": "none",
+			"name": "No Fruit",
+			"description": "No fruit is grown",
+			"value": 0.0
+		},
+		{
+			"key": "bananas",
+			"name": "Bananas",
+			"description": "Bananas are grown",
+			"value": 1.5
+		},
+		{
+			"key": "grapes",
+			"name": "Grapes",
+			"description": "Grapes are grown",
+			"value": 2.22
+		}
+	],
+	"environments": {
+		"production": {
+			"defaultVariation": "none",
+			"targets": [
+				{
+					"farms": [
+						"cows",
+						"chickens"
+					],
+					"variation": "bananas"
+				},
+				{
+					"farms": [
+						{
+							"farmId": "test998dev",
+							"comments": "horses"
+						}
+					],
+					"variation": "grapes"
+				}
+			]
+		},
+		"development": {
+			"defaultVariation": "grapes",
+			"rules": [
+				{
+					"versions": {
+						"start": "10.8.4.0"
+					},
+					"variation": "none"
+				},
+				{
+					"dataCenters": [
+						"us04",
+						"dmz",
+						"devlms"
+					],
+					"variation": "bananas"
+				}
+			]
+		}
+	}
+}

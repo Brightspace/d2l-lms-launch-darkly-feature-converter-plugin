@@ -1,0 +1,95 @@
+{
+	"name": "Fruit",
+	"kind": "multivariate",
+	"description": "A flag for the extra type of fruit grown on the farm",
+	"includeInSnippet": false,
+	"variations": [
+		{
+			"name": "No Fruit",
+			"description": "No fruit is grown",
+			"value": 0.0
+		},
+		{
+			"name": "Bananas",
+			"description": "Bananas are grown",
+			"value": 1.5
+		},
+		{
+			"name": "Grapes",
+			"description": "Grapes are grown",
+			"value": 2.22
+		}
+	],
+	"temporary": true,
+	"tags": [
+		"ABC",
+		"lms-farm-flag",
+		"lms-generated-flag",
+		"mocha",
+		"removed-from-code",
+		"test"
+	],
+	"environments": {
+		"production": {
+			"on": true,
+			"targets": [
+				{
+					"values": [
+						"farm:chickens",
+						"farm:cows"
+					],
+					"variation": 1
+				},
+				{
+					"values": [
+						"farm:test998dev"
+					],
+					"variation": 2
+				}
+			],
+			"rules": [],
+			"fallthrough": {
+				"variation": 0
+			},
+			"offVariation": 0
+		},
+		"test": {
+			"on": true,
+			"targets": [],
+			"rules": [
+				{
+					"variation": 0,
+					"clauses": [
+						{
+							"attribute": "bundleVersion",
+							"op": "greaterThanOrEqual",
+							"values": [
+								10080400000
+							],
+							"negate": false
+						}
+					]
+				},
+				{
+					"variation": 1,
+					"clauses": [
+						{
+							"attribute": "datacenter",
+							"op": "in",
+							"values": [
+								"devlms",
+								"dmz",
+								"us04"
+							],
+							"negate": false
+						}
+					]
+				}
+			],
+			"fallthrough": {
+				"variation": 2
+			},
+			"offVariation": 2
+		}
+	}
+}

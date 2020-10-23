@@ -12,11 +12,31 @@ describe( 'loadInstanceCatalogAsync', function() {
 	beforeEach( cleanUp );
 	afterEach( cleanUp );
 
-	it( 'should load instance catalog file', function( done ) {
+	it( 'should load absolute instance catalog file', function( done ) {
 
 		const path = pathUtil.join( __dirname, 'instanceCatalog.json' );
 		const fileUrl = formatFileUrl( path );
 		process.env.D2L_LMS_INSTANCE_CATALOG_SOURCE = fileUrl;
+
+		loadInstanceCatalog( ( err, catalog ) => {
+
+			if( err ) {
+				return done( err );
+			}
+
+			const instanceId = catalog.mapInstanceName( 'instance_a' );
+			assert.equal( instanceId, 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa' );
+
+			const tenantId = catalog.mapTenantDomain( 'www.tenant_b.org' );
+			assert.equal( tenantId, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb' );
+
+			return done();
+		} );
+	} );
+
+	it( 'should load relative instance catalog file', function( done ) {
+
+		process.env.D2L_LMS_INSTANCE_CATALOG_SOURCE = 'file:test/instanceCatalog.json';
 
 		loadInstanceCatalog( ( err, catalog ) => {
 

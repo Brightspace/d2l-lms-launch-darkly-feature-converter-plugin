@@ -41,10 +41,11 @@ module.exports = function loadInstanceCatalog( callback ) {
 
 	switch( url.protocol ) {
 
-		case 'file:':
+		case 'file:': {
 			const workingDir = formatFileUrl( process.cwd() ) + '/';
 			const fileUrl = new URL( src, workingDir );
 			return loadInstanceCatalogFile( fileUrl, callback );
+		}
 	}
 
 	const error = new Error( `Only file instance catalog sources are currently supported: ${src}` );

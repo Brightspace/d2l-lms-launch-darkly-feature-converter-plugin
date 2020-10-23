@@ -42,6 +42,7 @@ module.exports = function loadInstanceCatalog( callback ) {
 	switch( url.protocol ) {
 
 		case 'file:':
+
 			const workingDir = formatFileUrl( process.cwd() ) + '/';
 			const fileUrl = new URL( src, workingDir );
 			return loadInstanceCatalogFile( fileUrl, callback );

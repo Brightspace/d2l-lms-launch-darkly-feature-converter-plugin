@@ -1,11 +1,12 @@
 const InstanceCatalog = require( './InstanceCatalog.js' );
 const parseInstanceCatalog = require( './instanceCatalogParser.js' );
+const formatFileUrl = require( 'file-url' );
 const fsUtil = require( 'fs' );
 const URL = require( 'url' ).URL;
 
-function loadInstanceCatalogFile( path, callback ) {
+function loadInstanceCatalogFile( fileUrl, callback ) {
 
-	fsUtil.readFile( path, ( err, content ) => {
+	fsUtil.readFile( fileUrl, ( err, content ) => {
 
 		if( err ) {
 			return callback( err );
@@ -41,9 +42,9 @@ module.exports = function loadInstanceCatalog( callback ) {
 	switch( url.protocol ) {
 
 		case 'file:':
-			const workingDir = new URL( `file://${process.cwd()}/` )
-			const filePath = new URL( src, workingDir ).pathname;
-			return loadInstanceCatalogFile( filePath, callback );
+			const workingDir = formatFileUrl( process.cwd() ) + '/';
+			const fileUrl = new URL( src, workingDir );
+			return loadInstanceCatalogFile( fileUrl, callback );
 	}
 
 	const error = new Error( `Only file instance catalog sources are currently supported: ${src}` );

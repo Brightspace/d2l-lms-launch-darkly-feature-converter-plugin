@@ -1,5 +1,5 @@
 const assert = require( 'chai' ).assert;
-const InstanceCatalog = require( '../src/instanceCatalog/InstanceCatalog.js' );
+const InstanceCatalog = require( 'd2l-lms-instance-catalog' ).InstanceCatalog;
 const InstanceTargetsMapper = require( '../src/instance/InstanceTargetsMapper.js' );
 const VariationIndexMap = require( '../src/variations/VariationIndexMap.js' );
 

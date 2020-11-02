@@ -1,6 +1,6 @@
 const assert = require( 'chai' ).assert;
 const EnvironmentMapper = require( '../src/EnvironmentMapper.js' );
-const InstanceCatalog = require( '../src/instanceCatalog/InstanceCatalog.js' );
+const InstanceCatalog = require( 'd2l-lms-instance-catalog' ).InstanceCatalog;
 const InstanceRulesMapper = require( '../src/instance/InstanceRulesMapper.js' );
 const InstanceTargetsMapper = require( '../src/instance/InstanceTargetsMapper.js' );
 const VariationIndexMap = require( '../src/variations/VariationIndexMap.js' );

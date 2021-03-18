@@ -29,7 +29,7 @@ function* mapClauses( definition, instanceCatalog ) {
 		};
 	}
 
-	instanceNames = definition.instanceNames;
+	const instanceNames = definition.instanceNames;
 	if( instanceNames ) {
 
 		const implicitInstanceIds = _.map(

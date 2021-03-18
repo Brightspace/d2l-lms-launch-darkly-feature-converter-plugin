@@ -29,6 +29,38 @@ function* mapClauses( definition, instanceCatalog ) {
 		};
 	}
 
+	instanceNames = definition.instanceNames;
+	if( instanceNames ) {
+
+		const implicitInstanceIds = _.map(
+			instanceNames,
+			instanceName => instanceCatalog.mapInstanceName( instanceName )
+		);
+
+		const uniqueInstanceIds = _.orderBy(
+			_.uniq( implicitInstanceIds )
+		);
+
+		if( implicitInstanceIds.length !== uniqueInstanceIds.length ) {
+
+			const duplicates = _.orderBy(
+				duplicatesDeep( [
+					instanceNames
+				] )
+			);
+
+			const duplicatesStr = _.join( duplicates, ', ' );
+			throw new Error( `Instance names are duplicated in rule: ${duplicatesStr}` );
+		}
+
+		yield {
+			attribute: 'instanceId',
+			op: 'in',
+			values: uniqueInstanceIds,
+			negate: false
+		};
+	}
+
 	if( definition.instanceTypes ) {
 
 		const instanceTypes = _.orderBy(

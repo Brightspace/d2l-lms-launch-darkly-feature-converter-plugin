@@ -4,7 +4,10 @@ const OrgRulesMapper = require( '../src/org/OrgRulesMapper.js' );
 const VariationIndexMap = require( '../src/variations/VariationIndexMap.js' );
 
 const instanceCatalog = new InstanceCatalog(
-	new Map(),
+	new Map( [
+		[ 'instance_a', '11111111-1111-1111-1111-111111111111' ],
+		[ 'instance_c', '22222222-2222-2222-2222-222222222222' ]
+	] ),
 	new Map( [
 		[ 'www.tenant_a.org', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa' ],
 		[ 'www.tenant_c.org', 'cccccccc-cccc-cccc-cccc-cccccccccccc' ]
@@ -70,6 +73,52 @@ describe( 'OrgRulesMapperTests', function() {
 			],
 			variation: 2 
 		} );
+	} );
+
+	it( 'should map instance names', function() {
+
+		const definition = {
+			instanceNames: [
+				'instance_a',
+				'instance_c'
+			],
+			variation: 'abc'
+		};
+
+		const rule = mapper.mapRule( definition, variationIndexMap );
+
+		assert.deepEqual( rule, {
+			clauses: [
+				{
+					attribute: 'instanceId',
+					op: 'in',
+					values: [
+						'11111111-1111-1111-1111-111111111111',
+						'22222222-2222-2222-2222-222222222222'
+					],
+					negate: false
+				}
+			],
+			variation: 2 
+		} );
+	} );
+
+	it( 'should throw if duplicate instance names', function() {
+
+		const definition = {
+			instanceNames: [
+				'instance_a',
+				'instance_a'
+			],
+			variation: 'abc'
+		};
+
+		assert.throws(
+			() => {
+				mapper.mapRule( definition, variationIndexMap );
+			},
+			/^Instance names are duplicated in rule: instance_a$/
+		);
 	} );
 
 	it( 'should map instance types', function() {

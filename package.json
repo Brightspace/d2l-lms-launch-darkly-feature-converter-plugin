@@ -26,13 +26,13 @@
   "dependencies": {
     "ajv": "^6.12.4",
     "d2l-lms-instance-catalog": "0.0.2",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "^7.7.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.30.0",
     "file-url": "^3.0.0",
-    "mocha": "^8.1.1",
+    "mocha": "^9.0.2",
     "nyc": "^15.1.0"
   },
   "nyc": {

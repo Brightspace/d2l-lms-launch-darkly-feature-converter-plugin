@@ -184,7 +184,7 @@ function* createConverters( instanceCatalog ) {
 			orgMultivariateSchemaV4_1,
 			orgMultivariateSchemaV4_2,
 			orgMultivariateSchemaV4_3,
-			orgMultivariateSchemaV5_0
+			orgMultivariateSchemaV5_0,
 		] ),
 		multiVariationMapper,
 		orgEnvironmentMapper,

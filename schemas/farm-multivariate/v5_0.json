@@ -8,14 +8,16 @@
 		"name",
 		"environments",
 		"rallyId",
-		"variations"
+		"team",
+		"variations",
+		"versions"
 	],
 	"properties": {
 		"$schema": {
 			"type": "string",
 			"title": "The schema which uniquely identifies the feature flag type",
 			"enum": [
-				"http://schemas.featureflags.d2ldev.com/lms/farm-multivariate/v4_2.json"
+				"http://schemas.featureflags.d2ldev.com/lms/farm-multivariate/v5_0.json"
 			]
 		},
 		"name": {
@@ -28,9 +30,40 @@
 			"title": "The description of what the feature flag controls",
 			"minLength": 1
 		},
-		"removedFromCode": {
-			"$ref": "#/definitions/semanticVersion",
-			"title": "The version the feature was removed from code"
+		"notes": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"minLength": 1
+			},
+			"minItems": 1,
+			"title": "A non structured list of notes about the feature"
+		},
+		"team": {
+			"type": "string",
+			"pattern": "^[a-z_]+$",
+			"title": "The name of the team that owns the feature"
+		},
+		"versions": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"added": {
+					"$ref": "#/definitions/semanticVersion",
+					"title": "The version the feature was added to code"
+				},
+				"removalTarget": {
+					"$ref": "#/definitions/semanticVersion",
+					"title": "The version the feature is targeting to be removed from code"
+				},
+				"removed": {
+					"$ref": "#/definitions/semanticVersion",
+					"title": "The version the feature was removed from code"
+				}
+			},
+			"required": [
+				"added"
+			]
 		},
 		"rallyId": {
 			"oneOf": [

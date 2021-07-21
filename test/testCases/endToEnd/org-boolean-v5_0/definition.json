@@ -1,0 +1,90 @@
+{
+	"$schema": "http://schemas.featureflags.d2ldev.com/lms/org-boolean/v5_0.json",
+	"name": "Switch",
+	"description": "Simple on/off switch",
+	"notes": [
+		"Just a good old test"
+	],
+	"rallyId": [
+		"DE77777",
+		"DE88888"
+	],
+	"tags": [
+		"mocha",
+		"test",
+		"ABC"
+	],
+	"team": "test_squad",
+	"variations": {
+		"true": {
+			"name": "On",
+			"description": "Turns the switch on"
+		},
+		"false": {
+			"name": "Off",
+			"description": "Turns the switch off"
+		}
+	},
+	"environments": {
+		"production": {
+			"defaultVariation": "false",
+			"targets": [
+				{
+					"tenantIds": [
+						"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+					],
+					"variation": "true"
+				}
+			],
+			"rules": [
+				{
+					"instanceTypes": [
+						"sales",
+						"prod"
+					],
+					"variation": "true"
+				},
+				{
+					"instanceNames": [
+						"instance_foo"
+					],
+					"variation": "true"
+				}
+			]
+		},
+		"development": {
+			"defaultVariation": "true",
+			"rules": [
+				{
+					"versions": {
+						"start": "10.8.4.0"
+					},
+					"tenantDomains": [
+						"www.tenant_b.org"
+					],
+					"tenants": [
+						"e8bac343-db2e-4dea-8e9d-b4e51ff088b9",
+						{
+							"tenantId": "aedb73b4-137c-4b78-8f40-090ba126ac6b",
+							"comments": "Random"
+						}
+					],
+					"variation": "false"
+				},
+				{
+					"dataCenters": [
+						"us04",
+						"dmz",
+						"devlms"
+					],
+					"variation": "true"
+				}
+			]
+		}
+	},
+	"versions": {
+		"added": "20.20.4",
+		"removalTarget": "20.20.9",
+		"removed": "20.21.7"
+	}
+}
